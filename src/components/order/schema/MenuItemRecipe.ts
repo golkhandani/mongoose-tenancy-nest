@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Prop, Schema as MongooseSchema } from '@nestjs/mongoose';
+import * as mongoose from "mongoose";
+import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { Recipe } from "./Recipe";
 
 
@@ -21,3 +21,4 @@ export class MenuItemRecipe {
     })
     waste: number;
 }
+export const MenuItemRecipeSchema = SchemaFactory.createForClass(MenuItemRecipe);
