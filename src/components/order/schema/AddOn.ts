@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 import { Ingredient } from "./Ingredient";
 
 
@@ -11,7 +11,7 @@ export class AddOn {
     name: string;
 
     @Prop({
-        type: [mongoose.Schema.Types.ObjectId],
+        type: [Types.ObjectId],
         ref: Ingredient.name
     })
     ingredientItems: string;
