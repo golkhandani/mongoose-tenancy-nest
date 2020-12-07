@@ -1,7 +1,10 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 
+import { Document, Mongoose } from "mongoose";
 
-@MongooseSchema()
+@MongooseSchema({
+    collection: "table"
+})
 export class Table {
     @Prop({
         type: String

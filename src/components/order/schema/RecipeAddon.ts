@@ -4,7 +4,9 @@ import { Ingredient } from "./Ingredient";
 import { AddOn } from "./AddOn";
 
 
-@MongooseSchema()
+@MongooseSchema({
+    _id: false
+})
 export class RecipeAddon {
 
     @Prop({

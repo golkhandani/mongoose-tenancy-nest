@@ -1,7 +1,9 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 
 
-@MongooseSchema()
+@MongooseSchema({
+    collection: "ingredient"
+})
 export class Ingredient {
     @Prop({
         type: String

@@ -3,7 +3,9 @@ import { Types } from 'mongoose';
 import { Ingredient } from "./Ingredient";
 
 
-@MongooseSchema()
+@MongooseSchema({
+    collection: "addOn"
+})
 export class AddOn {
     @Prop({
         type: String

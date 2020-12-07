@@ -1,8 +1,11 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { MenuItemRecipe, MenuItemRecipeSchema } from "./MenuItemRecipe";
+import { Document, Mongoose } from "mongoose";
 
 
-@MongooseSchema()
+@MongooseSchema({
+    collection: "menuItem"
+})
 export class MenuItem {
     @Prop({
         type: String

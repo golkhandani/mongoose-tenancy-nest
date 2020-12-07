@@ -3,7 +3,9 @@ import { RecipeIngredient, RecipeIngredientSchema } from "./RecipeIngredient";
 import { RecipeAddon, RecipeAddonSchema } from "./RecipeAddon";
 
 
-@MongooseSchema()
+@MongooseSchema({
+    collection: "recipe",
+})
 export class Recipe {
     @Prop({
         type: String

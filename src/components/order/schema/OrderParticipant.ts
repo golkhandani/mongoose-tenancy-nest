@@ -4,7 +4,9 @@ import { User } from "./User";
 import { OrderParticipantMenuItem, OrderParticipantMenuItemSchema } from "./OrderParticipantMenuItem";
 
 
-@MongooseSchema()
+@MongooseSchema({
+    _id: false
+})
 export class OrderParticipant {
     @Prop({
         type: mongoose.Schema.Types.ObjectId

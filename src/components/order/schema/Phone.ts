@@ -1,7 +1,9 @@
 import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 
 
-@MongooseSchema()
+@MongooseSchema({
+    _id: false
+})
 export class Phone {
     @Prop({
         type: String

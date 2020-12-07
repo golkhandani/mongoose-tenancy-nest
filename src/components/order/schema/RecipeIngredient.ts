@@ -3,7 +3,9 @@ import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose'
 import { Ingredient } from "./Ingredient";
 
 
-@MongooseSchema()
+@MongooseSchema({
+    _id: false
+})
 export class RecipeIngredient {
 
     @Prop({

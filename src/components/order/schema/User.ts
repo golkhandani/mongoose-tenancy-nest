@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
-import { Phone } from "./Phone";
+import { Phone, PhoneSchema } from "./Phone";
 import { Location, LocationSchema } from "./Location";
 import { Order } from "./Order";
 
@@ -10,7 +10,9 @@ export enum Role {
     'SUPER_VISOR' = 'ADMIN'
 }
 
-@MongooseSchema()
+@MongooseSchema({
+    collection: "user"
+})
 export class User {
     @Prop({
         type: String
@@ -18,7 +20,7 @@ export class User {
     name: string;
 
     @Prop({
-        type: [Phone],
+        type: [PhoneSchema],
     })
     phone: Phone[];
 

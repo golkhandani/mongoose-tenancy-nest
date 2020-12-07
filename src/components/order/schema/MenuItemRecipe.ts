@@ -3,11 +3,13 @@ import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose'
 import { Recipe } from "./Recipe";
 
 
-@MongooseSchema()
+@MongooseSchema({
+    _id: false
+})
 export class MenuItemRecipe {
     @Prop({
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: Recipe.name
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Recipe"
     })
     recipe: string | Recipe;
 

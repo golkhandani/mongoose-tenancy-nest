@@ -3,11 +3,13 @@ import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose'
 import { Table } from "./Table";
 
 
-@MongooseSchema()
+@MongooseSchema({
+    _id: false
+})
 export class OrderSit {
     @Prop({
         type: mongoose.Schema.Types.ObjectId,
-        ref: Table.name
+        ref: "Table"
     })
     table: string | Table;
     @Prop({
