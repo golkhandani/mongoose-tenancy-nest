@@ -1,5 +1,7 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
-import { MenuItemRecipe } from "./MenuItemRecipe";
+import { MenuItemRecipe, MenuItemRecipeSchema } from "./MenuItemRecipe";
+import { OrderParticipant, OrderParticipantSchema } from './OrderParticipant';
+import { OrderSit, OrderSitSchema } from './OrderSit';
 
 
 @MongooseSchema()
@@ -15,31 +17,14 @@ export class Order {
     totalPrice: string;
 
     @Prop({
-        type: String
+        type: OrderSitSchema
     })
-    englishName: string;
-
+    sit: OrderSit;
 
     @Prop({
-        type: Number
+        type: [OrderParticipantSchema]
     })
-    quantity: number;
-
-    @Prop({
-        type: Number
-    })
-    price: number;
-
-    @Prop({
-        type: Number
-    })
-    wasteCost: number;
-
-
-    @Prop({
-        type: [MenuItemRecipe]
-    })
-    recipes: MenuItemRecipe[];
+    participant: OrderParticipant[];
 
 }
 

@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import { Prop, Schema as MongooseSchema } from '@nestjs/mongoose';
+import * as mongoose from "mongoose";
+import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { User } from "./User";
-import { OrderParticipantMenuItem } from "./OrderParticipantMenuItem";
+import { OrderParticipantMenuItem, OrderParticipantMenuItemSchema } from "./OrderParticipantMenuItem";
 
 
 @MongooseSchema()
@@ -28,7 +28,8 @@ export class OrderParticipant {
     totalPrice: Date;
 
     @Prop({
-        type: [OrderParticipantMenuItem]
+        type: [OrderParticipantMenuItemSchema]
     })
     menuItems: OrderParticipantMenuItem[];
 }
+export const OrderParticipantSchema = SchemaFactory.createForClass(OrderParticipant);

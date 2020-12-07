@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { AbstractRepository } from "../../common/repository/repository.abstract";
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
 import { OrderDefinition } from './schema/Order';
 
 @Injectable()
 export class OrderService extends AbstractRepository {
-  constructor(@InjectConnection() connection: Connection) {
-    super(OrderDefinition, connection);
+  constructor() {
+    super(OrderDefinition);
   }
 
   async get() {

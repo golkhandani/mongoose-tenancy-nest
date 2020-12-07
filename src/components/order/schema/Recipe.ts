@@ -1,6 +1,6 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
-import { RecipeIngredient } from "./RecipeIngredient";
-import { RecipeAddon } from "./RecipeAddon";
+import { RecipeIngredient, RecipeIngredientSchema } from "./RecipeIngredient";
+import { RecipeAddon, RecipeAddonSchema } from "./RecipeAddon";
 
 
 @MongooseSchema()
@@ -37,12 +37,12 @@ export class Recipe {
 
 
     @Prop({
-        type: [RecipeIngredient]
+        type: [RecipeIngredientSchema]
     })
     ingredients: RecipeIngredient[];
 
     @Prop({
-        type: [RecipeAddon]
+        type: [RecipeAddonSchema]
     })
     addOns: RecipeAddon[];
 }

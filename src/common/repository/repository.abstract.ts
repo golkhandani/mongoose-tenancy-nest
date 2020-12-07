@@ -1,17 +1,27 @@
 import { IRepository } from './repository.interface';
+import { ConnectionProvider } from '../connection/connection.provider';
+import { Connection } from 'mongoose';
+import { InjectConnection } from '@nestjs/mongoose';
 
 export abstract class AbstractRepository implements IRepository<any> {
-  constructor(private readonly model, private readonly connection) {}
+  private connection: Connection;  
+
+  constructor(private readonly model) {}
+
+  stablishConnection(@InjectConnection() connection: Connection) {
+    this.connection = connection
+  }
 
   getModel(tenantDatabaseName: string) {
+
     const model = this.connection
       .useDb(tenantDatabaseName)
-      .model(this.model.name, this.model.Schema);
-
+      .model(this.model.name, this.model.schema);
+  
     return {
       async findOne(id: number) {},
       async findOneByOrderId(orderId: number) {
-        return "salam, man inja mikham chizaye ezafe ro pak konam va dg majboor nasham connection ro inject konam"
+        console.log(this.connection);
       },
       async findAll() {},
       async store(params: object) {

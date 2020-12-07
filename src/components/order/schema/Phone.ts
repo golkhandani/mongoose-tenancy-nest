@@ -1,4 +1,4 @@
-import { Prop, Schema as MongooseSchema } from '@nestjs/mongoose';
+import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 
 
 @MongooseSchema()
@@ -13,3 +13,4 @@ export class Phone {
     })
     prefix: string;
 }
+export const PhoneSchema = SchemaFactory.createForClass(Phone);

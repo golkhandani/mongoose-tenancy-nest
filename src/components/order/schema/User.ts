@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { Phone } from "./Phone";
-import { Location } from "./Location";
+import { Location, LocationSchema } from "./Location";
+import { Order } from "./Order";
 
 
 export enum Role {
@@ -22,7 +23,7 @@ export class User {
     phone: Phone[];
 
     @Prop({
-        type: Location
+        type: LocationSchema
     })
     location: Location;
 
@@ -47,7 +48,7 @@ export class User {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Order'
     })
-    orders: string[] | any[];
+    orders: string[] | Order[];
 }
 export type UserDocument = User & Document;
 export const UserSchema = SchemaFactory.createForClass(User);
