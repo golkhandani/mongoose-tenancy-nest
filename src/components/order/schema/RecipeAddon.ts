@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Prop, Schema as MongooseSchema } from '@nestjs/mongoose';
+import * as mongoose from "mongoose";
+import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { Ingredient } from "./Ingredient";
 import { AddOn } from "./AddOn";
 
@@ -8,7 +8,7 @@ import { AddOn } from "./AddOn";
 export class RecipeAddon {
 
     @Prop({
-        type: [mongoose.Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: Ingredient.name
     })
     addOn: string | AddOn;
@@ -23,3 +23,4 @@ export class RecipeAddon {
     })
     waste: number;
 }
+export const RecipeAddonSchema = SchemaFactory.createForClass(RecipeAddon);

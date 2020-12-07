@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Prop, Schema as MongooseSchema } from '@nestjs/mongoose';
+import * as mongoose from "mongoose";
+import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { Table } from "./Table";
 
 
@@ -15,3 +15,4 @@ export class OrderSit {
     })
     checkInDateTime: Date;
 }
+export const OrderSitSchema = SchemaFactory.createForClass(OrderSit);

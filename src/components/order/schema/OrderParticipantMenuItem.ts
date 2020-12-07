@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Prop, Schema as MongooseSchema } from '@nestjs/mongoose';
+import * as mongoose from "mongoose";
+import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { MenuItem } from "./MenuItem";
 
 
@@ -26,3 +26,4 @@ export class OrderParticipantMenuItem {
     })
     preprationTime: number;
 }
+export const OrderParticipantMenuItemSchema = SchemaFactory.createForClass(OrderParticipantMenuItem);
