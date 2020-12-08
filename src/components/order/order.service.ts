@@ -17,8 +17,7 @@ export class OrderService {
   async getAggregation(tenant: string) {
     const orderId = 5001;
     //.log();
-    const tenantFake = "Fabizi_" + Math.floor((Math.random() * 2) + 1)
-    const orderCollection = this.abstractRepository.setTenant(tenantFake).db.collection("order");
+    const orderCollection = this.abstractRepository.setTenant("Fabizi_1").db.collection("order");
     const timer = Date.now();
     const order = await orderCollection.aggregate([
       {
@@ -155,10 +154,9 @@ export class OrderService {
 
     const orderId = 5001;
     //.log();
-    const tenantFake = "Fabizi_" + Math.floor((Math.random() * 2) + 1)
-    //console.log(tenantFake);
+    var tenantFake = "Fabizi_" + Math.floor((Math.random() * 2) + 1)
+    console.log(tenantFake);
     // return await this.OrderModel.db.useDb(tenant).collection("order").find().toArray()
-    const timer = Date.now();
     return await this.abstractRepository.setTenant(tenantFake).getModel<OrderDocument>(OrderDefinition)
       .findOne(
         {
@@ -178,6 +176,6 @@ export class OrderService {
         'participant.user',
         'participant.menuItems.menuItem',
         'participant.menuItems.menuItem.recipes.recipe',
-      ]).exec().finally(() => console.log("+", Date.now() - timer));
+      ]).exec()
   }
 }

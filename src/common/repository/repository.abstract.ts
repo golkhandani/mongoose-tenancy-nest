@@ -16,7 +16,7 @@ import { RecipeDefinition } from 'src/components/order/schema/Recipe';
 export class AbstractRepository {
 
   constructor(@InjectConnection() private readonly connection: Connection) {
-    // this.registerSchemas()
+    this.registerSchemas()
   }
 
   private readonly Definitions = [
@@ -27,15 +27,17 @@ export class AbstractRepository {
     OrderDefinition
   ]
   async registerSchemas() {
+    console.time('sss')
     for (let index = 1; index < 1001; index++) {
       const tenant = "Fabizi_" + index;
-      const db = this.connection
-        .useDb(tenant, { useCache: true })
-      for (let index = 0; index < this.Definitions.length; index++) {
-        const Definition = this.Definitions[index];
+      const db = this.connection.useDb(tenant, { useCache: true })
+
+      for (let j = 0; j < this.Definitions.length; j++) {
+        const Definition = this.Definitions[j];
         db.model(Definition.name, Definition.schema)
       }
     }
+    console.timeEnd('sss')
     console.log("COMPLETE TENANCY");
 
   }

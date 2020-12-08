@@ -12,7 +12,7 @@ export class OrderController {
     async getDeep(
         @Headers("tenant") tenant: string
     ) {
-        return this.orderService.getAggregation(tenant);
+        return this.orderService.get(tenant);
     }
 
     @Get("agg")
