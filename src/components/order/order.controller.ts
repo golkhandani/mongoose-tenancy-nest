@@ -22,4 +22,11 @@ export class OrderController {
         return this.orderService.getAggregation(tenant);
     }
 
+    @Get("tenant")
+    async getTenant(
+        @Headers("tenant") tenant: string
+    ) {
+        return this.orderService.getByTenant();
+    }
+
 }

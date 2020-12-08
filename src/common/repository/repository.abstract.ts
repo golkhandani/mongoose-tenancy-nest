@@ -16,41 +16,56 @@ import { RecipeDefinition } from 'src/components/order/schema/Recipe';
 export class AbstractRepository {
 
   constructor(@InjectConnection() private readonly connection: Connection) {
-    this.registerSchemas()
+    // this.registerSchemas()
   }
 
-  private readonly Definitions = [
-    MenuItemDefinition,
-    UserDefinition,
-    RecipeDefinition,
-    TableDefinition,
-    OrderDefinition
-  ]
-  async registerSchemas() {
-    console.time('sss')
-    for (let index = 1; index < 1001; index++) {
-      const tenant = "Fabizi_" + index;
-      const db = this.connection.useDb(tenant, { useCache: true })
+  // private readonly Definitions = [
+  //   MenuItemDefinition,
+  //   UserDefinition,
+  //   RecipeDefinition,
+  //   TableDefinition,
+  //   OrderDefinition
+  // ]
+  // async registerSchemas() {
+  //   console.time('sss')
+  //   for (let index = 1; index < 1001; index++) {
+  //     const tenant = "Fabizi_" + index;
+  //     const db = this.connection.useDb(tenant, { useCache: true })
 
-      for (let j = 0; j < this.Definitions.length; j++) {
-        const Definition = this.Definitions[j];
-        db.model(Definition.name, Definition.schema)
-      }
-    }
-    console.timeEnd('sss')
-    console.log("COMPLETE TENANCY");
+  //     for (let j = 0; j < this.Definitions.length; j++) {
+  //       const Definition = this.Definitions[j];
+  //       db.model(Definition.name, Definition.schema)
+  //     }
+  //   }
+  //   console.timeEnd('sss')
+  //   console.log("COMPLETE TENANCY");
 
-  }
-  setTenant(tenantDatabaseName: string) {
-    const db = this.connection
-      .useDb(tenantDatabaseName, { useCache: true })
-    function getModel<T extends Document>(ModelDefiniation: ModelDefinition): Model<T> {
-      const model = db.model(ModelDefiniation.name);
-      return model as any
+  // }
+  // setTenant(tenantDatabaseName: string) {
+  //   const db = this.connection
+  //     .useDb(tenantDatabaseName, { useCache: true })
+  //   function getModel<T extends Document>(ModelDefiniation: ModelDefinition): Model<T> {
+  //     const model = db.model(ModelDefiniation.name);
+  //     return model as any
+  //   }
+  //   return {
+  //     getModel,
+  //     db
+  //   };
+  // }
+
+
+  setModel(tenantDatabaseName: string, MainModelDefinition: ModelDefinition, DependencyModelDefinitions?: ModelDefinition[]) {
+    const connection = this.connection
+
+    const db = connection.useDb(tenantDatabaseName)
+
+    for (let index = 0; index < DependencyModelDefinitions.length; index++) {
+      const ModelDefinition = DependencyModelDefinitions[index];
+      db.model(ModelDefinition.name, ModelDefinition.schema);
     }
-    return {
-      getModel,
-      db
-    };
+
+    const model = db.model(MainModelDefinition.name, MainModelDefinition.schema);
+    return model as any
   }
 }
