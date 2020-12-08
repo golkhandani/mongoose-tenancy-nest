@@ -10,6 +10,7 @@ import { TableDefinition } from './schema/Table';
 
 @Module({
     imports: [
+        MongooseModule.forFeature([OrderDefinition, TableDefinition]),
         CommonModule,
 
     ],

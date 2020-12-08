@@ -4,7 +4,9 @@ import { AbstractRepository } from "./repository/repository.abstract"
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017')
+    MongooseModule.forRoot('mongodb://localhost:27017', {
+
+    })
   ],
   controllers: [],
   providers: [

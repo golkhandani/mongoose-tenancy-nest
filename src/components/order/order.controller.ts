@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Header, Headers } from '@nestjs/common';
 import { OrderService } from './order.service';
 
 @Controller(OrderController.path)
@@ -9,8 +9,10 @@ export class OrderController {
     ) { }
 
     @Get()
-    async get() {
-        return this.orderService.get();
+    async get(
+        @Headers("tenant") tenant: string
+    ) {
+        return this.orderService.get(tenant);
     }
 
 }

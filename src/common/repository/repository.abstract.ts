@@ -31,54 +31,28 @@ export class AbstractRepository {
     OrderDefinition
   ]
   async registerSchemas() {
-    const db = this.connection
-      .useDb("Fabizi_1", { useCache: true })
-    for (let index = 0; index < this.Definitions.length; index++) {
-      const Definition = this.Definitions[index];
-      db.model(Definition.name, Definition.schema)
+    for (let index = 1; index < 10001; index++) {
+      const tenant = "Fabizi_" + index;
+      const db = this.connection
+        .useDb(tenant, { useCache: true })
+      for (let index = 0; index < this.Definitions.length; index++) {
+        const Definition = this.Definitions[index];
+        db.model(Definition.name, Definition.schema)
+      }
     }
+    console.log("COMPLETE TENANCY");
+
   }
   setTenant(tenantDatabaseName: string) {
-    const connection = this.connection
+    const db = this.connection
+      .useDb(tenantDatabaseName, { useCache: true })
     function getModel<T extends Document>(ModelDefiniation: ModelDefinition): Model<T> {
-      const db = connection
-        .useDb(tenantDatabaseName, { useCache: true })
-
-      // const Definitions = [
-      //   TableDefinition,
-      //   OrderDefinition
-      // ]
-      // for (let index = 0; index < Definitions.length; index++) {
-      //   const Definition = Definitions[index];
-      //   db.model(Definition.name, Definition.schema)
-      // }
-
-      // db.model(TableDefinition.name, TableDefinition.schema)
-      const model =
-        db.model(ModelDefiniation.name)
-      //    .model(TableDefinition.name, TableDefinition.schema);
-
+      const model = db.model(ModelDefiniation.name);
       return model as any
     }
     return {
-      getModel
+      getModel,
+      db
     };
   }
-  // getModel(tenantDatabaseName: string) {
-
-  //   const model = this.connection
-  //     .useDb(tenantDatabaseName)
-  //     .model(this.model.name, this.model.schema);
-
-  //   return {
-  //     async findOne(id: number) { },
-  //     async findOneByOrderId(orderId: number) {
-  //       console.log(this.connection);
-  //     },
-  //     async findAll() { },
-  //     async store(params: object) {
-  //       return await model.create(params)
-  //     }
-  //   };
-  // }
 }

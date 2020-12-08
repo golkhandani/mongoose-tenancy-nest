@@ -9,15 +9,20 @@ import { TableDefinition, TableDocument } from './schema/Table';
 @Injectable()
 export class OrderService {
   constructor(
-    private readonly abstractRepository: AbstractRepository) {
+    private readonly abstractRepository: AbstractRepository,
+    @InjectModel(Order.name) private OrderModel: Model<OrderDocument>) {
 
   }
 
-  async get() {
-    const orderId = 5000;
-    // return 
-    // await this.abstractRepository.setTenant("Fabizi_1").getModel<TableDocument>(TableDefinition).findOne();
-    return await this.abstractRepository.setTenant("Fabizi_1").getModel<OrderDocument>(OrderDefinition)
+  async get(tenant: string) {
+
+
+    const orderId = 5001;
+    //.log();
+    const tenantFake = "Fabizi_" + Math.floor((Math.random() * 2) + 1)
+    //console.log(tenantFake);
+    // return await this.OrderModel.db.useDb(tenant).collection("order").find().toArray()
+    return await this.abstractRepository.setTenant(tenantFake).getModel<OrderDocument>(OrderDefinition)
       .findOne(
         {
           orderId: orderId
