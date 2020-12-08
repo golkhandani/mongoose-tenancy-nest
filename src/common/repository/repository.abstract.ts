@@ -14,15 +14,11 @@ import { RecipeDefinition } from 'src/components/order/schema/Recipe';
 
 @Injectable()
 export class AbstractRepository {
-  // private connection: Connection;
 
   constructor(@InjectConnection() private readonly connection: Connection) {
-    this.registerSchemas()
+    // this.registerSchemas()
   }
 
-  // stablishConnection(@InjectConnection() connection: Connection) {
-  //   this.connection = connection
-  // }
   private readonly Definitions = [
     MenuItemDefinition,
     UserDefinition,
@@ -31,7 +27,7 @@ export class AbstractRepository {
     OrderDefinition
   ]
   async registerSchemas() {
-    for (let index = 1; index < 10001; index++) {
+    for (let index = 1; index < 1001; index++) {
       const tenant = "Fabizi_" + index;
       const db = this.connection
         .useDb(tenant, { useCache: true })

@@ -8,11 +8,18 @@ export class OrderController {
         private readonly orderService: OrderService
     ) { }
 
-    @Get()
-    async get(
+    @Get("deep")
+    async getDeep(
         @Headers("tenant") tenant: string
     ) {
-        return this.orderService.get(tenant);
+        return this.orderService.getAggregation(tenant);
+    }
+
+    @Get("agg")
+    async getAgg(
+        @Headers("tenant") tenant: string
+    ) {
+        return this.orderService.getAggregation(tenant);
     }
 
 }

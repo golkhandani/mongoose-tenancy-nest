@@ -14,6 +14,142 @@ export class OrderService {
 
   }
 
+  async getAggregation(tenant: string) {
+    const orderId = 5001;
+    //.log();
+    const tenantFake = "Fabizi_" + Math.floor((Math.random() * 2) + 1)
+    const orderCollection = this.abstractRepository.setTenant(tenantFake).db.collection("order");
+    const timer = Date.now();
+    const order = await orderCollection.aggregate([
+      {
+        $match: { orderId }
+      },
+      {
+        $lookup:
+        {
+          from: "table",
+          localField: "sit.table",
+          foreignField: "_id",
+          as: "sit.table"
+        }
+      },
+      {
+        $unwind: "$sit.table"
+      },
+      {
+        $unwind: "$participant"
+      },
+      {
+        $lookup:
+        {
+          from: "user",
+          localField: "participant.user",
+          foreignField: "_id",
+          as: "participant.user"
+        }
+      },
+      {
+        $unwind: "$participant.user"
+      },
+      {
+        $unwind: "$participant.menuItems"
+      },
+      {
+        $lookup: {
+          from: "menuItem",
+          let: {
+            menuItemId: "$participant.menuItems.menuItem",
+            count: "$participant.menuItems.count",
+            price: "$participant.menuItems.price",
+            preprationTime: "$participant.menuItems.preprationTime"
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$_id", "$$menuItemId"] },
+                  ]
+                }
+              },
+            },
+            // lots of recipes
+            {
+              $unwind: "$recipes"
+            },
+            // now each have one recipe
+            {
+              $lookup: {
+                from: "recipe",
+                let: { recipeId: "$recipes.recipe", amount: "$recipe.amount" },
+                pipeline: [
+                  {
+                    $match: {
+                      $expr: {
+                        $and: [
+                          { $eq: ["$_id", "$$recipeId"] },
+                        ]
+                      }
+                    },
+                  },
+                ],
+                as: "recipe"
+              }
+            },
+            {
+              $group: {
+                _id: "$$menuItemId",
+                count: { $first: "$$count" },
+                price: { $first: "$$price" },
+                preprationTime: { $first: "$$preprationTime" },
+                recipe: { $push: { $first: "$recipe" } }
+              }
+            }
+          ],
+          as: "participant.menuItems"
+        }
+      },
+      {
+        $unwind: "$participant.menuItems"
+      },
+      {
+        $group: {
+          _id: "$participant.user",
+          orderObjectId: { $first: "$_id" },
+          orderId: { $first: "$orderId" },
+          orderSit: { $first: "$sit" },
+          orderTotalPrice: { $first: "$totalPrice" },
+
+          participantUser: { $first: "$participant.user" },
+          participantSubOrderId: { $first: "$participant.subOrderId" },
+          participantCheckOutDateTime: { $first: "$participant.checkOutDateTime" },
+          participantTotalPrice: { $first: "$participant.totalPrice" },
+
+          participantMenuItems: { $push: "$participant.menuItems" }
+        }
+      },
+      {
+        $group: {
+          _id: "$orderObjectId",
+          orderId: { $first: "$orderId" },
+          sit: { $first: "$orderSit" },
+          totalPrice: { $first: "$orderTotalPrice" },
+          participant: {
+            $push: {
+              user: "$participantUser",
+              subOrderId: "$participantSubOrderId",
+              checkOutDateTime: "$participantCheckOutDateTime",
+              totalPrice: "$participantTotalPrice",
+              menuItems: "$participantMenuItems"
+            }
+          }
+        }
+      }
+    ]).toArray().finally(() => console.log("*", Date.now() - timer))
+
+    return order
+  }
+
   async get(tenant: string) {
 
 
@@ -22,6 +158,7 @@ export class OrderService {
     const tenantFake = "Fabizi_" + Math.floor((Math.random() * 2) + 1)
     //console.log(tenantFake);
     // return await this.OrderModel.db.useDb(tenant).collection("order").find().toArray()
+    const timer = Date.now();
     return await this.abstractRepository.setTenant(tenantFake).getModel<OrderDocument>(OrderDefinition)
       .findOne(
         {
@@ -41,6 +178,6 @@ export class OrderService {
         'participant.user',
         'participant.menuItems.menuItem',
         'participant.menuItems.menuItem.recipes.recipe',
-      ]).exec();
+      ]).exec().finally(() => console.log("+", Date.now() - timer));
   }
 }
