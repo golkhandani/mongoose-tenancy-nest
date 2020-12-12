@@ -4,6 +4,7 @@ import { Request } from 'express';
 import { CommonModule } from 'src/common/common.module';
 import { AbstractRepository } from 'src/common/repository/repository.abstract';
 import { OrderController } from './order.controller';
+import { OrderProviders } from './order.provider';
 
 import { OrderService } from './order.service';
 import { MenuItemDefinition } from './schema/MenuItem';
@@ -23,25 +24,7 @@ import { UserDefinition } from './schema/User';
     ],
     providers: [
         OrderService,
-        {
-            scope: Scope.REQUEST,
-            provide: "DATABASE_MODEL_TENANT",
-            useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-                console.log(request.headers["tenant"]);
-
-                return abstractRepository.setModel(
-                    request.headers["tenant"] as string,
-                    OrderDefinition,
-                    [
-                        UserDefinition,
-                        TableDefinition,
-                        MenuItemDefinition,
-                        RecipeDefinition
-                    ]
-                )
-            },
-            inject: [AbstractRepository, "REQUEST"]
-        }
+        ...OrderProviders
     ],
 })
 export class OrderModule { };

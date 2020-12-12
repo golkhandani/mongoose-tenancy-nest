@@ -60,9 +60,11 @@ export class AbstractRepository {
 
     const db = connection.useDb(tenantDatabaseName, { useCache: true })
 
-    for (let index = 0; index < DependencyModelDefinitions.length; index++) {
-      const ModelDefinition = DependencyModelDefinitions[index];
-      db.model(ModelDefinition.name, ModelDefinition.schema);
+    if (DependencyModelDefinitions) {
+      for (let index = 0; index < DependencyModelDefinitions.length; index++) {
+        const ModelDefinition = DependencyModelDefinitions[index];
+        db.model(ModelDefinition.name, ModelDefinition.schema);
+      }
     }
 
     const model = db.model(MainModelDefinition.name, MainModelDefinition.schema);

@@ -1,10 +1,11 @@
 import { Inject, Injectable, Scope } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { v4 } from 'uuid';
 import { AbstractRepository } from "../../common/repository/repository.abstract";
 import { MenuItemDefinition, MenuItemDocument } from './schema/MenuItem';
 import { Order, OrderDefinition, OrderDocument } from './schema/Order';
-import { TableDefinition, TableDocument } from './schema/Table';
+import { Table, TableDefinition, TableDocument } from './schema/Table';
 
 @Injectable(
   {
@@ -13,38 +14,59 @@ import { TableDefinition, TableDocument } from './schema/Table';
 )
 export class OrderService {
   constructor(
-    @Inject("DATABASE_MODEL_TENANT") private readonly tenantModel: Model<OrderDocument>,
+    @Inject("Order_Model") private readonly orderModel: Model<OrderDocument>,
+    @Inject("Table_Model") private readonly tableModel: Model<TableDocument>,
     private readonly abstractRepository: AbstractRepository,
     @InjectModel(Order.name) private OrderModel: Model<OrderDocument>) {
 
   }
 
+  async createNewOrder() {
+    const table: Table = {
+      name: "Goldan",
+      status: "Avalilable",
+      capacity: 3
+    }
+    const newTable = await this.tableModel.create(table);
+
+    const order: Order = {
+      orderId: 213412,
+      totalPrice: 321,
+      participant: [],
+      sit: {
+        table: newTable._id,
+        checkInDateTime: new Date(),
+      }
+    }
+    return await this.orderModel.create(order);
+  }
 
   async getByTenant() {
-    const orderId = 5001;
+    const orderId = 213412;
 
-    return await this.tenantModel.find().where({ orderId });
+    // return await this.tenantModel.find().where({ orderId });
 
-    return await this.tenantModel
+    const result = await this.orderModel
       .findOne(
         {
           orderId: orderId
         },
-        {
-          "Id": 1,
-          "orderId": 1,
-          "participant.menuItems.count": 1,
-          "participant.menuItems.menuItem": 1,
-        }
+        // {
+        //   "Id": 1,
+        //   "orderId": 1,
+        //   "participant.menuItems.count": 1,
+        //   "participant.menuItems.menuItem": 1,
+        // }
       )
       // .populate('sit.table')
-      .lean()
-    // .deepPopulate([
-    //   'sit.table',
-    //   'participant.user',
-    //   'participant.menuItems.menuItem',
-    //   'participant.menuItems.menuItem.recipes.recipe',
-    // ]).exec()
+      // .lean()
+      .deepPopulate([
+        'sit.table',
+        // 'participant.user',
+        // 'participant.menuItems.menuItem',
+        // 'participant.menuItems.menuItem.recipes.recipe',
+      ]).exec()
+    return result
   }
 
   async getAggregation(tenant: string) {

@@ -3,16 +3,22 @@ import { MenuItemRecipe, MenuItemRecipeSchema } from "./MenuItemRecipe";
 import { OrderParticipant, OrderParticipantSchema } from './OrderParticipant';
 import { OrderSit, OrderSitSchema } from './OrderSit';
 import { Document, Mongoose } from "mongoose";
-import { loadedAtPlugin } from 'src/common/repository/mongoose.plugin';
+import { basicPlugin } from 'src/common/repository/mongoose.plugin';
+import { v4 } from 'uuid';
 
 const mongoose = require('mongoose');
 const deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 @MongooseSchema({
-    collection: "order"
-
+    collection: "order",
+    skipVersioning: true
 })
 export class Order {
+    @Prop({
+        default: v4,
+    })
+    _id?: string;
+
     @Prop({
         type: Number
     })
@@ -47,7 +53,7 @@ OrderSchema.plugin(deepPopulate, {
         }
     }
 });
-OrderSchema.plugin(loadedAtPlugin)
+OrderSchema.plugin(basicPlugin);
 export const OrderDefinition: ModelDefinition = {
     collection: "order",
     name: "Order",

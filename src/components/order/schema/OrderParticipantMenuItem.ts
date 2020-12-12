@@ -9,7 +9,7 @@ import { MenuItem } from "./MenuItem";
 export class OrderParticipantMenuItem {
     @Prop({
         type: mongoose.Schema.Types.ObjectId,
-        ref: "MenuItem"
+        ref: "MenuItem",
     })
     menuItem: string | MenuItem;
 

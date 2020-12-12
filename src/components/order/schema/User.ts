@@ -3,6 +3,7 @@ import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '
 import { Phone, PhoneSchema } from "./Phone";
 import { Location, LocationSchema } from "./Location";
 import { Order } from "./Order";
+import { basicPlugin } from "src/common/repository/mongoose.plugin";
 
 
 export enum Role {
@@ -54,6 +55,8 @@ export class User {
 }
 export type UserDocument = User & Document;
 export const UserSchema = SchemaFactory.createForClass(User);
+UserSchema.plugin(basicPlugin);
+
 export const UserDefinition: ModelDefinition = {
     collection: "user",
     name: "User",

@@ -1,4 +1,4 @@
-import { Controller, Get, Header, Headers } from '@nestjs/common';
+import { Controller, Get, Header, Headers, Post } from '@nestjs/common';
 import { OrderService } from './order.service';
 
 @Controller(OrderController.path)
@@ -7,6 +7,14 @@ export class OrderController {
     constructor(
         private readonly orderService: OrderService
     ) { }
+
+    @Post()
+    async newOrder(
+        @Headers("tenant") tenant: string
+    ) {
+        return this.orderService.createNewOrder();
+    }
+
 
     @Get("deep")
     async getDeep(

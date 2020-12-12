@@ -1,4 +1,5 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
+import { basicPlugin } from 'src/common/repository/mongoose.plugin';
 
 
 @MongooseSchema({
@@ -48,6 +49,7 @@ export class Ingredient {
 
 export type IngredientDocument = Ingredient & Document;
 export const IngredientSchema = SchemaFactory.createForClass(Ingredient);
+IngredientSchema.plugin(basicPlugin);
 export const IngredientDefinition: ModelDefinition = {
     collection: "ingredient",
     name: "Ingredient",

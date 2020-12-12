@@ -1,5 +1,6 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
+import { basicPlugin } from 'src/common/repository/mongoose.plugin';
 import { Ingredient } from "./Ingredient";
 
 
@@ -41,6 +42,8 @@ export class AddOn {
 
 export type AddOnDocument = AddOn & Document;
 export const AddOnSchema = SchemaFactory.createForClass(AddOn);
+AddOnSchema.plugin(basicPlugin);
+
 export const AddOnDefinition: ModelDefinition = {
     collection: "addOn",
     name: "AddOn",

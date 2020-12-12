@@ -9,7 +9,8 @@ import { OrderParticipantMenuItem, OrderParticipantMenuItemSchema } from "./Orde
 })
 export class OrderParticipant {
     @Prop({
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     })
     user: string | User;
 

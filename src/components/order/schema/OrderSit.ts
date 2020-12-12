@@ -8,7 +8,7 @@ import { Table } from "./Table";
 })
 export class OrderSit {
     @Prop({
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Table"
     })
     table: string | Table;
