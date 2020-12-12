@@ -27,6 +27,8 @@ import { UserDefinition } from './schema/User';
             scope: Scope.REQUEST,
             provide: "DATABASE_MODEL_TENANT",
             useFactory: (abstractRepository: AbstractRepository, request: Request) => {
+                console.log(request.headers["tenant"]);
+
                 return abstractRepository.setModel(
                     request.headers["tenant"] as string,
                     OrderDefinition,

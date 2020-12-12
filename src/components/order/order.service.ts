@@ -13,7 +13,7 @@ import { TableDefinition, TableDocument } from './schema/Table';
 )
 export class OrderService {
   constructor(
-    @Inject("DATABASE_MODEL_TENANT") private readonly tenantModel: any,
+    @Inject("DATABASE_MODEL_TENANT") private readonly tenantModel: Model<OrderDocument>,
     private readonly abstractRepository: AbstractRepository,
     @InjectModel(Order.name) private OrderModel: Model<OrderDocument>) {
 
@@ -22,13 +22,16 @@ export class OrderService {
 
   async getByTenant() {
     const orderId = 5001;
+
+    return await this.tenantModel.find().where({ orderId });
+
     return await this.tenantModel
       .findOne(
         {
           orderId: orderId
         },
         {
-          "_id": 1,
+          "Id": 1,
           "orderId": 1,
           "participant.menuItems.count": 1,
           "participant.menuItems.menuItem": 1,
@@ -36,12 +39,12 @@ export class OrderService {
       )
       // .populate('sit.table')
       .lean()
-      .deepPopulate([
-        'sit.table',
-        'participant.user',
-        'participant.menuItems.menuItem',
-        'participant.menuItems.menuItem.recipes.recipe',
-      ]).exec()
+    // .deepPopulate([
+    //   'sit.table',
+    //   'participant.user',
+    //   'participant.menuItems.menuItem',
+    //   'participant.menuItems.menuItem.recipes.recipe',
+    // ]).exec()
   }
 
   async getAggregation(tenant: string) {

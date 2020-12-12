@@ -3,12 +3,14 @@ import { MenuItemRecipe, MenuItemRecipeSchema } from "./MenuItemRecipe";
 import { OrderParticipant, OrderParticipantSchema } from './OrderParticipant';
 import { OrderSit, OrderSitSchema } from './OrderSit';
 import { Document, Mongoose } from "mongoose";
+import { loadedAtPlugin } from 'src/common/repository/mongoose.plugin';
 
 const mongoose = require('mongoose');
 const deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 @MongooseSchema({
     collection: "order"
+
 })
 export class Order {
     @Prop({
@@ -45,6 +47,7 @@ OrderSchema.plugin(deepPopulate, {
         }
     }
 });
+OrderSchema.plugin(loadedAtPlugin)
 export const OrderDefinition: ModelDefinition = {
     collection: "order",
     name: "Order",

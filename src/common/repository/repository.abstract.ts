@@ -58,7 +58,7 @@ export class AbstractRepository {
   setModel(tenantDatabaseName: string, MainModelDefinition: ModelDefinition, DependencyModelDefinitions?: ModelDefinition[]) {
     const connection = this.connection
 
-    const db = connection.useDb(tenantDatabaseName)
+    const db = connection.useDb(tenantDatabaseName, { useCache: true })
 
     for (let index = 0; index < DependencyModelDefinitions.length; index++) {
       const ModelDefinition = DependencyModelDefinitions[index];
