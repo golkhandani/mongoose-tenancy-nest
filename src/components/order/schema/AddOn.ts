@@ -2,6 +2,7 @@ import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '
 import { Types } from 'mongoose';
 import { basicPlugin } from 'src/common/repository/mongoose.plugin';
 import { Ingredient } from "./Ingredient";
+import { Document, Mongoose } from "mongoose";
 
 
 @MongooseSchema({

@@ -3456,6 +3456,7 @@ declare module "mongoose" {
             : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
         findOneAndDelete(conditions: FilterQuery<T>, options: QueryFindOneAndRemoveOptions, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
+        findByIdAndSoftDelete(id: string): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
         /**
          * Issues a mongodb findAndModify update command.
          * Finds a matching document, updates it according to the update arg, passing any options,
@@ -3566,6 +3567,7 @@ declare module "mongoose" {
         deleteOne(conditions: FilterQuery<T>, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
         deleteMany(conditions: FilterQuery<T>, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
         deleteMany(conditions: FilterQuery<T>, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+
 
         /**
          * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).
