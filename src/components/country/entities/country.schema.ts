@@ -6,9 +6,8 @@ import { v4 as uuid } from 'uuid';
 import { Currency, currencySchema } from './currency.schema';
 import { Language, languageSchema } from './language.schema';
 import { Exclude, Expose } from 'class-transformer';
-import { basicPlugin } from '../../../common/repository/mongoose.plugin';
-import { BaseSchema } from '../../media/schema/media.schema';
 import { Document } from 'mongoose'
+import { BaseSchema, basicPlugin } from 'src/common/helper/mongoose/mongoose.helper';
 
 export const countryConstant = {
   collectionName: "country",
@@ -21,7 +20,7 @@ export const countryConstant = {
   timestamps: true,
 })
 @Exclude()
-export class Country extends BaseSchema{
+export class Country extends BaseSchema {
 
   @Prop({
     type: String

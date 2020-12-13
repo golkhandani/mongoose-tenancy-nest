@@ -2,7 +2,7 @@ import { Post } from '@nestjs/common';
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 
 import { Document, Mongoose } from "mongoose";
-import { basicPlugin } from 'src/common/repository/mongoose.plugin';
+import { basicPlugin } from 'src/common/helper/mongoose/mongoose.helper';
 import { v4 } from 'uuid';
 
 import moment from "moment";

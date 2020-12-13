@@ -7,13 +7,17 @@ import { Media, MediaDocument } from './schema/media.schema';
 export class MediaService {
     constructor(
         @Inject("Media_Model") private readonly mediaModel: Model<MediaDocument>,
-    ) { }
+    ) {
+    }
 
     async findOne() {
-        const result = await this.mediaModel.findOne();
-        return result.toJSON();
+        const result = await this.mediaModel.findOne({
+            "_id": "4c9e5995-15c9-4f92-a5f3-90b460bbcc81",
+        });
+        return result;
     }
     async createMedia() {
+
         const media: Partial<Media> = {
             region: "es-us",
             bucket: "fabizi",
@@ -22,7 +26,8 @@ export class MediaService {
             path: "google.com/png.png"
         }
         const result = await this.mediaModel.create(media)
-        return result
+
+        return result;
     }
 
     async deleteOneById() {

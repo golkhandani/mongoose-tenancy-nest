@@ -1,7 +1,7 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { RecipeIngredient, RecipeIngredientSchema } from "./RecipeIngredient";
 import { RecipeAddon, RecipeAddonSchema } from "./RecipeAddon";
-import { basicPlugin } from 'src/common/repository/mongoose.plugin';
+import { basicPlugin } from 'src/common/helper/mongoose/mongoose.helper';
 
 
 @MongooseSchema({

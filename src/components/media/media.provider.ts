@@ -4,11 +4,10 @@ import { MediaDefinition } from "./schema/media.schema";
 
 export const mediaProviders: Provider[] = [
     {
-        scope: Scope.REQUEST,
         provide: "Media_Model",
         useFactory: (abstractRepository: AbstractRepository, request: Request) => {
             return abstractRepository.setModel(
-                request.headers["tenant"] as string,
+                request.headers["tenant"] as string || "Fabizi_1",
                 MediaDefinition
             )
         },

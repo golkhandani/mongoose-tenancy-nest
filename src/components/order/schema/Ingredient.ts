@@ -1,5 +1,5 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
-import { basicPlugin } from 'src/common/repository/mongoose.plugin';
+import { basicPlugin } from 'src/common/helper/mongoose/mongoose.helper';
 import { Document, Mongoose } from "mongoose";
 
 

@@ -3,7 +3,7 @@ import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '
 import { Phone, PhoneSchema } from "./Phone";
 import { Location, LocationSchema } from "./Location";
 import { Order } from "./Order";
-import { basicPlugin } from "src/common/repository/mongoose.plugin";
+import { basicPlugin } from 'src/common/helper/mongoose/mongoose.helper';
 
 
 export enum Role {
