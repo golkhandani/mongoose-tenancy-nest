@@ -7,6 +7,7 @@ import { CommonModule } from './common/common.module';
 import { MediaModule } from './components/media/media.module';
 import { CountryModule } from './components/country/country.module';
 import { LanguageModule } from './components/language/language.module';
+import { RolePermissionModule } from './components/role-permission/role-permission.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { LanguageModule } from './components/language/language.module';
     OrderModule,
     CountryModule,
     LanguageModule,
+    RolePermissionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

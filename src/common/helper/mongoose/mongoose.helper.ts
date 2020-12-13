@@ -19,12 +19,36 @@ function basicPlugin(schema: ObjectSchema) {
 
             this._id = v;
         });
+
+    schema.set("toJSON", {
+        versionKey: false,
+        virtuals: false,
+        transform: (doc) => {
+            doc._doc.id = doc._doc._id ? doc._doc._id : doc._doc.id;
+            delete doc._doc.__v;
+            delete doc._doc._id;
+            return doc._doc;
+        }
+    })
+    schema.set("toObject", {
+        versionKey: false,
+        virtuals: false,
+        transform: (doc) => {
+            doc._doc.id = doc._doc._id ? doc._doc._id : doc._doc.id;
+            delete doc._doc.__v;
+            delete doc._doc._id;
+            return doc._doc;
+        }
+    })
 };
 
 
-function ModelFactory(modelClass: any) {
+function ModelFactory(modelClass: any, plugins: { plugin: any, option?: any }[] = []) {
     const modelSchema = SchemaFactory.createForClass(modelClass);
     modelSchema.plugin(basicPlugin);
+    plugins.forEach((plugin) => {
+        modelSchema.plugin(plugin.plugin, plugin.option || {});
+    })
     const modelDefinition: ModelDefinition = {
         name: modelClass.name,
         schema: modelSchema

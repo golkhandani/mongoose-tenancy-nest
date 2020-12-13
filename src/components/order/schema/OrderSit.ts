@@ -9,7 +9,7 @@ import { Table } from "./Table";
 export class OrderSit {
     @Prop({
         type: String,
-        ref: "Table"
+        ref: Table.name
     })
     table: string | Table;
     @Prop({

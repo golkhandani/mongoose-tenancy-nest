@@ -1,5 +1,5 @@
 import { Exclude, Expose } from 'class-transformer';
-import { BaseSchema, basicPlugin, ModelDefinition, ModelFactory, MongooseDocument, MongooseSchema, Prop, SchemaFactory } from 'src/common/helper/mongoose/mongoose.helper';
+import { BaseSchema, ModelFactory, MongooseDocument, MongooseSchema, Prop } from 'src/common/helper/mongoose/mongoose.helper';
 
 @MongooseSchema({
     collection: "media"

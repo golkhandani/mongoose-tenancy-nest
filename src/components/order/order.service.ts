@@ -43,6 +43,7 @@ export class OrderService {
 
   async getByTenant() {
     const orderId = 213412;
+    console.log(orderId);
 
     // return await this.tenantModel.find().where({ orderId });
 
@@ -66,6 +67,8 @@ export class OrderService {
         // 'participant.menuItems.menuItem',
         // 'participant.menuItems.menuItem.recipes.recipe',
       ]).exec()
+    console.log(result);
+
     return result
   }
 

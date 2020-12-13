@@ -6,48 +6,48 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { Document } from 'mongoose'
 import { BaseSchema, basicPlugin, ModelFactory } from 'src/common/helper/mongoose/mongoose.helper';
 import { Language } from '../../language/entities/language.entity';
+import * as mongoose from "mongoose"
+
+const schema = new mongoose.Schema({
+  name: { type: String }
+})
 
 @MongooseSchema({
   collection: 'country',
 })
-@Exclude()
 export class Country extends BaseSchema {
 
   @Prop({
     type: String
   })
-  @Expose()
+
   name: string
 
   @Prop({
     type: String
   })
-  @Expose()
+
   nativeName: string
 
   @Prop({
     type: countryAlphaCodeSchema
   })
-  @Type(() => CountryAlphaCode)
-  // @Expose()
   alphaCode: CountryAlphaCode
 
   @Prop({
     type: [String]
   })
-  @Expose()
+
   callingCode: string[]
 
   @Prop({
     type: String
   })
-  @Expose()
   capital: string
 
   @Prop({
     type: [String]
   })
-  @Expose()
   altSpellings: string[]
 
   @Prop({
@@ -60,31 +60,32 @@ export class Country extends BaseSchema {
       'Oceania'
     ]
   })
-  @Expose()
   region: string;
+
+  @Type(() => GeoLocation)
 
   @Prop({
     type: geoLocationSchema
   })
-  @Expose()
+
   geoLocation: GeoLocation
 
   @Prop({
     type: [String]
   })
-  
+
   timezones: string[]
 
   @Prop({
     type: String
   })
-  
+
   numericCode: string
 
   @Prop({
     type: [currencySchema]
   })
-  
+
   currencies: Currency[]
 
   @Prop({
@@ -102,7 +103,7 @@ export class Country extends BaseSchema {
   @Prop({
     type: String
   })
-  
+
   flag: string
 
 }
@@ -112,13 +113,3 @@ export const {
   modelDefinition: CountryDefinition,
   modelSchema: CountrySchema
 } = ModelFactory(Country);
-
-// export type CountryDocument = Country & Document;
-// export const countrySchema = SchemaFactory.createForClass(Country);
-//
-// countrySchema.plugin(basicPlugin);
-//
-// export const countryDefinition: ModelDefinition = {
-//   name: countryConstant.modelName,
-//   schema: countrySchema
-// }

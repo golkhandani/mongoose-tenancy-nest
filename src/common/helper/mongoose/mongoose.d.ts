@@ -1,4 +1,79 @@
+// Type definitions for Mongoose 5.10.9
+// Project: http://mongoosejs.com/
+// Definitions by: horiuchi <https://github.com/horiuchi>
+//                 lukasz-zak <https://github.com/lukasz-zak>
+//                 jendrikw <https://github.com/jendrikw>
+//                 Ethan Resnick <https://github.com/ethanresnick>
+//                 vologa <https://github.com/vologab>
+//                 jussikinnula <https://github.com/jussikinnula>
+//                 ondratra <https://github.com/ondratra>
+//                 alfirin <https://github.com/alfirin>
+//                 Idan Dardikman <https://github.com/idandrd>
+//                 Dominik Heigl <https://github.com/various89>
+//                 Fazendaaa <https://github.com/Fazendaaa>
+//                 Norman Perrin <https://github.com/NormanPerrin>
+//                 stablio <https://github.com/stablio>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
+//                 Frontend Monster <https://github.com/frontendmonster>
+//                 Ming Chen <https://github.com/mingchen>
+//                 Olga Isakova <https://github.com/penumbra1>
+//                 HughKu <https://github.com/HughKu>
+//                 Erik Lopez <https://github.com/niuware>
+//                 Vlad Melnik <https://github.com/vladmel1234>
+//                 Jarom Loveridge <https://github.com/jloveridge>
+//                 Grimmer Kang <https://github.com/grimmer0125>
+//                 Richard Davison <https://github.com/richarddd>
+//                 Brian Chen <https://github.com/ToucheSir>
+//                 Boris Figovsky <https://github.com/borfig>
+//                 Simon Driscoll <https://github.com/dinodeSimon>
+//                 Anton Kenikh <https://github.com/anthony-kenikh>
+//                 Chathu Vishwajith <https://github.com/iamchathu>
+//                 LKHO <https://github.com/lkho>
+//                 Tom Yam <https://github.com/tomyam1>
+//                 Thomas Pischulski <https://github.com/nephix>
+//                 Sam Kim <https://github.com/rlaace423>
+//                 Dongjun Lee <https://github.com/ChazEpps>
+//                 Jan Nemcik <https://github.com/JanNemcik>
+//                 Cl3dson <https://github.com/cl3dson>
+//                 Richard Simko <https://github.com/richardsimko>
+//                 Marek Tuchalski <https://github.com/ith>
+//                 Jeremy Bensimon <https://github.com/jeremyben>
+//                 Andrei Alecu <https://github.com/andreialecu>
+//                 The Half Blood Prince <https://github.com/tHBp>
+//                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Guillem Gelabert Sunyer <https://github.com/guillem-gelabert>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.2
 
+/// <reference types="node" />
+
+
+/*
+ * Guidelines for maintaining these definitions:
+ * - If you spot an error here or there, please submit a PR.
+ *   Give some examples/links to documentation if you can.
+ *
+ * For patches and minor releases:
+ * - Browse the changelog at https://github.com/Automattic/mongoose/blob/master/History.md
+ *   and make necessary changes. Afterwards, update the version number at the top so we know
+ *   which version we are on.
+ *
+ * For major releases:
+ * - Refer to the updated docs at https//mongoosejs.com/docs/api.html
+ * - On the left-hand side of the docs is a list of .js files. Reset and update the TODO list below
+ *   then go through one-by-one, making any updates to params list, return type, etc. For documentation
+ *   changes just copy/paste them into here.
+ * - Check the files off as you go. Some files below might not have anything in them. That's ok, this
+ *   is just a simple heuristic to keep track of our progress.
+ */
+
+/*
+For easier searching, add a header to each section like so:
+To find a section, CTRL+F and type "section ___.js"
+/*
+ * section filename.js
+ * http://mongoosejs.com/docs/api.html#filename-js
+ */
 
 declare module "mongoose" {
     import events = require('events');
@@ -2309,7 +2384,7 @@ declare module "mongoose" {
         populate(path: string | any, select?: string | any, model?: any,
             match?: any, options?: any): this;
         populate(options: QueryPopulateOptions | QueryPopulateOptions[]): this;
-
+        deepPopulate(arrayOfPath: string[], fn?: any): this;
         /**
          * Determines the MongoDB nodes from which to read.
          * @param pref one of the listed preference options or aliases
@@ -2437,7 +2512,6 @@ declare module "mongoose" {
         within(coordinate: number[], ...coordinatePairs: number[][]): this;
 
         wtimeout(ms?: number): this;
-        deepPopulate(arrayOfPath: string[]): this;
 
         /** Flag to opt out of using $geoWithin. */
         static use$geoWithin: boolean;
@@ -3375,6 +3449,8 @@ declare module "mongoose" {
             callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T | null>) => void)
             : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
         findByIdAndDelete(id: any | number | string, options: QueryFindOneAndRemoveOptions, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
+        findByIdAndSoftDelete(id: any | number | string): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
+
 
         /**
          * Issues a mongodb findAndModify update command by a document's _id field. findByIdAndUpdate(id, ...)
@@ -3456,7 +3532,6 @@ declare module "mongoose" {
             : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
         findOneAndDelete(conditions: FilterQuery<T>, options: QueryFindOneAndRemoveOptions, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
-        findByIdAndSoftDelete(id: string): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
         /**
          * Issues a mongodb findAndModify update command.
          * Finds a matching document, updates it according to the update arg, passing any options,
@@ -3567,7 +3642,6 @@ declare module "mongoose" {
         deleteOne(conditions: FilterQuery<T>, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
         deleteMany(conditions: FilterQuery<T>, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
         deleteMany(conditions: FilterQuery<T>, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
-
 
         /**
          * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).
