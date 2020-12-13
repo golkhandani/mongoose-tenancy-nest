@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateCountryDto } from './dto/create-country.dto';
 import { Model } from 'mongoose';
 import { Country, CountryDocument } from './entities/country.schema';
 
@@ -7,8 +6,7 @@ import { Country, CountryDocument } from './entities/country.schema';
 export class CountryService {
   constructor(
     @Inject('CountryModel') private readonly countryModel: Model<CountryDocument>
-  ) {
-  }
+  ) {}
   
   async create() {
     const country: Partial<Country> = {
@@ -43,16 +41,7 @@ export class CountryService {
           symbol: "﷼"
         }
       ],
-      languages: [
-        {
-          isoCode: {
-            primary: "fa",
-            secondary: "fas"
-          },
-          name: "Persian (Farsi)",
-          nativeName: "فارسی"
-        }
-      ],
+      languages: [],
       translations:  {
         "de": "Iran",
         "es": "Iran",

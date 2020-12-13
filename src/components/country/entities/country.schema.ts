@@ -1,10 +1,7 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { CountryAlphaCode, countryAlphaCodeSchema } from './countryAlpaCode.schema'
 import { GeoLocation, geoLocationSchema } from './geoLocation.schema';
-
-import { v4 as uuid } from 'uuid';
 import { Currency, currencySchema } from './currency.schema';
-import { Language, languageSchema } from './language.schema';
 import { Exclude, Expose } from 'class-transformer';
 import { Document } from 'mongoose'
 import { BaseSchema, basicPlugin } from 'src/common/helper/mongoose/mongoose.helper';
@@ -17,7 +14,6 @@ export const countryConstant = {
 
 @MongooseSchema({
   collection: countryConstant.collectionName,
-  timestamps: true,
 })
 @Exclude()
 export class Country extends BaseSchema {
@@ -87,9 +83,10 @@ export class Country extends BaseSchema {
   currencies: Currency[]
 
   @Prop({
-    type: [languageSchema]
+    type: String,
+    ref: 'Language'
   })
-  languages: Language[]
+  languages: string[]
 
   @Prop({
     type: Object

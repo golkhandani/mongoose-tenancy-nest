@@ -1,7 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { languageDocument } from './entities/language.entity';
 
 @Injectable()
 export class LanguageService {
+
+  constructor(
+    @Inject('LanguageModel') private readonly languageModel: Model<languageDocument>
+  ) {}
+
   create() {
     return 'This action adds a new language';
   }
