@@ -13,9 +13,12 @@ export const MediaConstant = {
 @MongooseSchema()
 export class BaseSchema {
     @Prop({
-        default: uuid,
+        type: String,
+        default: uuid
     })
     _id?: string;
+    @Expose()
+    id?: string;
 
     @Prop({
         type: Date,
@@ -74,6 +77,14 @@ export class Media extends BaseSchema {
 
 export type MediaDocument = Media & Document;
 export const MediaSchema = SchemaFactory.createForClass(Media);
+
+MediaSchema.virtual('id')
+    .get(function () {
+        return this._id;
+    }).
+    set(function (v: string) {
+        this._id = v || uuid();
+    });
 MediaSchema.plugin(basicPlugin);
 export const MediaDefinition: ModelDefinition = {
     name: MediaConstant.modelName,

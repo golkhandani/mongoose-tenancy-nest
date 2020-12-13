@@ -10,9 +10,8 @@ export class MediaService {
     ) { }
 
     async findOne() {
-        console.log("FIND ONE")
         const result = await this.mediaModel.findOne();
-        return plainToClass(Media, result.toJSON());
+        return result.toJSON();
     }
     async createMedia() {
         const media: Partial<Media> = {
@@ -22,7 +21,8 @@ export class MediaService {
             key: "key",
             path: "google.com/png.png"
         }
-        return await this.mediaModel.create(media)
+        const result = await this.mediaModel.create(media)
+        return result
     }
 
     async deleteOneById() {

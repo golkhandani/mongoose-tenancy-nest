@@ -11,8 +11,6 @@ export const OrderProviders: Provider[] = [
         scope: Scope.REQUEST,
         provide: "Order_Model",
         useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-            console.log(request.headers["tenant"]);
-
             return abstractRepository.setModel(
                 request.headers["tenant"] as string,
                 OrderDefinition,
@@ -30,8 +28,6 @@ export const OrderProviders: Provider[] = [
         scope: Scope.REQUEST,
         provide: "Table_Model",
         useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-            console.log(request.headers["tenant"]);
-
             return abstractRepository.setModel(
                 request.headers["tenant"] as string,
                 TableDefinition

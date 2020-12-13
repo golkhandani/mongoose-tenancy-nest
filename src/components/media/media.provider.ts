@@ -7,8 +7,6 @@ export const mediaProviders: Provider[] = [
         scope: Scope.REQUEST,
         provide: "Media_Model",
         useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-            console.log(request.headers["tenant"]);
-
             return abstractRepository.setModel(
                 request.headers["tenant"] as string,
                 MediaDefinition
