@@ -10,22 +10,30 @@ function basicPlugin(schema: ObjectSchema) {
         const obj = await this.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true, useFindAndModify: false });
         return obj
     });
+    schema.virtual('id')
+        .get(function () {
+            return this._id;
+        })
+        .set(function (v: string) {
+            console.log("SET ID: ", v);
 
-
-    // schema.set("toJSON", {
-    //     versionKey: false,
-    //     virtuals: true,
-    //     // transform: (doc) => {
-    //     //     doc._doc.id = doc._doc._id ? doc._doc._id : doc._doc.id;
-    //     //     delete doc._doc.__v;
-    //     //     delete doc._doc._id;
-    //     //     return doc._doc;
-    //     // }
-    // })
+            this._id = v;
+        });
 };
 
 
-
+function ModelFactory(modelClass: any) {
+    const modelSchema = SchemaFactory.createForClass(modelClass);
+    modelSchema.plugin(basicPlugin);
+    const modelDefinition: ModelDefinition = {
+        name: modelClass.name,
+        schema: modelSchema
+    };
+    return {
+        modelSchema,
+        modelDefinition
+    }
+}
 const MongooseSchema = (options?: SchemaOptions) => {
     const defaultOptions = {
         timestamps: true,
@@ -71,6 +79,7 @@ export {
     Prop,
     MongooseSchema,
     SchemaFactory,
+    ModelFactory,
     Document as MongooseDocument,
     basicPlugin
 }

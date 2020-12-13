@@ -1,13 +1,8 @@
 import { Exclude, Expose } from 'class-transformer';
-import { BaseSchema, basicPlugin, ModelDefinition, MongooseDocument, MongooseSchema, Prop, SchemaFactory } from 'src/common/helper/mongoose/mongoose.helper';
-
-export const MediaConstant = {
-    collectionName: "media",
-    modelName: "Media"
-}
+import { BaseSchema, basicPlugin, ModelDefinition, ModelFactory, MongooseDocument, MongooseSchema, Prop, SchemaFactory } from 'src/common/helper/mongoose/mongoose.helper';
 
 @MongooseSchema({
-    collection: MediaConstant.collectionName,
+    collection: "media"
 })
 @Exclude()
 export class Media extends BaseSchema {
@@ -27,32 +22,25 @@ export class Media extends BaseSchema {
     @Prop({
         type: String
     })
+    @Expose()
     etag: string;
 
     @Prop({
         type: String
     })
+    @Expose()
     key: string;
 
     @Prop({
         type: String
     })
+    @Expose()
     path: string;
 }
 
 export type MediaDocument = Media & MongooseDocument;
-export const MediaSchema = SchemaFactory.createForClass(Media);
-MediaSchema.virtual('id')
-    .get(function () {
-        return this._id;
-    })
-    .set(function (v: string) {
-        console.log("SET ID: ", v);
+export const {
+    modelDefinition: MediaDefinition,
+    modelSchema: MediaSchema
+} = ModelFactory(Media);
 
-        this._id = v;
-    });
-MediaSchema.plugin(basicPlugin);
-export const MediaDefinition: ModelDefinition = {
-    name: MediaConstant.modelName,
-    schema: MediaSchema
-};
