@@ -6,6 +6,7 @@ import { OrderModule } from './components/order/order.module';
 import { CommonModule } from './common/common.module';
 import { MediaModule } from './components/media/media.module';
 import { CountryModule } from './components/country/country.module';
+import { LanguageModule } from './components/language/language.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CountryModule } from './components/country/country.module';
     MediaModule,
     OrderModule,
     CountryModule,
+    LanguageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
