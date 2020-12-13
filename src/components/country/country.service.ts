@@ -41,7 +41,9 @@ export class CountryService {
           symbol: "﷼"
         }
       ],
-      languages: [],
+      languages: [
+        "a0a83ef8-a79e-44e9-baa6-57aa88bb2b96"
+      ],
       translations:  {
         "de": "Iran",
         "es": "Iran",
@@ -62,8 +64,13 @@ export class CountryService {
   }
 
   async findAll() {
-    const result = await this.countryModel.findOne();
-    return result;
+    try {
+      const result = await this.countryModel.findOne();
+      return result;
+    }catch (e) {
+      console.log(e);
+    }
+
   }
 
   findOne(id: number) {

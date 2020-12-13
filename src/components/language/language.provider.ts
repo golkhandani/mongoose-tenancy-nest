@@ -1,6 +1,6 @@
 import { Provider, Scope } from "@nestjs/common";
 import { AbstractRepository } from "src/common/repository/repository.abstract";
-import { languageDefinition } from './entities/language.entity'
+import { LanguageDefinition } from './entities/language.entity'
 
 export const languageProviders: Provider[] = [
   {
@@ -9,7 +9,7 @@ export const languageProviders: Provider[] = [
     useFactory: (abstractRepository: AbstractRepository, request: Request) => {
       return abstractRepository.setModel(
         request.headers["tenant"] as string,
-        languageDefinition
+        LanguageDefinition
       )
     },
     inject: [AbstractRepository, "REQUEST"]

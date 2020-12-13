@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { languageDocument } from './entities/language.entity';
+import { Language, languageDocument } from './entities/language.entity';
 
 @Injectable()
 export class LanguageService {
@@ -9,8 +9,16 @@ export class LanguageService {
     @Inject('LanguageModel') private readonly languageModel: Model<languageDocument>
   ) {}
 
-  create() {
-    return 'This action adds a new language';
+  async create() {
+    const language: Partial<Language> = {
+      isoCode: {
+        primary: 'fa',
+        secondary: 'fas'
+      },
+      name: 'farsi',
+      nativeName: 'فارسی'
+    }
+    return await this.languageModel.create(language)
   }
 
   findAll() {
