@@ -7,7 +7,7 @@ import * as mongoose from "mongoose";
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017')
+    MongooseModule.forRoot('mongodb://localhost:27017', { w: 'majority' })
   ],
   controllers: [],
   providers: [

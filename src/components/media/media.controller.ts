@@ -16,6 +16,7 @@ export class MediaController {
     }
 
     @Post()
+    @TransformPlainToClass(Media)
     async createMedia() {
         return this.mediaService.createMedia();
     }

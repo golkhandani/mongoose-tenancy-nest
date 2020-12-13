@@ -3,8 +3,8 @@ import { MenuItemRecipe, MenuItemRecipeSchema } from "./MenuItemRecipe";
 import { OrderParticipant, OrderParticipantSchema } from './OrderParticipant';
 import { OrderSit, OrderSitSchema } from './OrderSit';
 import { Document, Mongoose } from "mongoose";
-import { basicPlugin } from 'src/common/repository/mongoose.plugin';
 import { v4 } from 'uuid';
+import { basicPlugin } from 'src/common/helper/mongoose/mongoose.helper';
 
 const mongoose = require('mongoose');
 const deepPopulate = require('mongoose-deep-populate')(mongoose);

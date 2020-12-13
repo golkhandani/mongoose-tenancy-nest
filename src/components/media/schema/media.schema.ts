@@ -1,48 +1,13 @@
-import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
-import { basicPlugin } from 'src/common/repository/mongoose.plugin';
-import { v4 as uuid } from 'uuid';
-import { Document, Mongoose } from "mongoose";
 import { Exclude, Expose } from 'class-transformer';
-
+import { BaseSchema, basicPlugin, ModelDefinition, MongooseDocument, MongooseSchema, Prop, SchemaFactory } from 'src/common/helper/mongoose/mongoose.helper';
 
 export const MediaConstant = {
     collectionName: "media",
     modelName: "Media"
 }
 
-@MongooseSchema()
-export class BaseSchema {
-    @Prop({
-        type: String,
-        default: uuid
-    })
-    _id?: string;
-    @Expose()
-    id?: string;
-
-    @Prop({
-        type: Date,
-        default: new Date()
-    })
-    createdAt?: Date;
-
-    @Prop({
-        type: Date,
-        default: new Date()
-    })
-    updatedAt?: Date;
-
-    @Prop({
-        type: Date,
-        default: null
-    })
-    deletedAt?: Date;
-}
-
-
 @MongooseSchema({
     collection: MediaConstant.collectionName,
-    timestamps: true,
 })
 @Exclude()
 export class Media extends BaseSchema {
@@ -75,15 +40,16 @@ export class Media extends BaseSchema {
     path: string;
 }
 
-export type MediaDocument = Media & Document;
+export type MediaDocument = Media & MongooseDocument;
 export const MediaSchema = SchemaFactory.createForClass(Media);
-
 MediaSchema.virtual('id')
     .get(function () {
         return this._id;
-    }).
-    set(function (v: string) {
-        this._id = v || uuid();
+    })
+    .set(function (v: string) {
+        console.log("SET ID: ", v);
+
+        this._id = v;
     });
 MediaSchema.plugin(basicPlugin);
 export const MediaDefinition: ModelDefinition = {
