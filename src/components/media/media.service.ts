@@ -27,7 +27,7 @@ export class MediaService {
         }
         const result = await this.mediaModel.create(media)
 
-        return result;
+        return result.toJSON();
     }
 
     async deleteOneById() {

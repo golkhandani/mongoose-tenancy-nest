@@ -15,7 +15,6 @@ export class Language extends BaseSchema {
       secondary: String
     }
   })
-  @Expose()
   isoCode: {
     primary: string,
     secondary: string
@@ -24,13 +23,11 @@ export class Language extends BaseSchema {
   @Prop({
     type: String
   })
-  @Expose()
   name: string
 
   @Prop({
     type: String
   })
-  @Expose()
   nativeName: string
 }
 

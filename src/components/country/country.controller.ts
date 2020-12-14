@@ -7,7 +7,7 @@ import { Country } from './entities/country.schema';
 
 @Controller('country')
 export class CountryController {
-  constructor(private readonly countryService: CountryService) {}
+  constructor(private readonly countryService: CountryService) { }
 
   @Post()
   @TransformPlainToClass(Country)

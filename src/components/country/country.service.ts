@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { plainToClass } from 'class-transformer';
 import { Model } from 'mongoose';
 import { Country, CountryDocument } from './entities/country.schema';
 
@@ -6,8 +7,8 @@ import { Country, CountryDocument } from './entities/country.schema';
 export class CountryService {
   constructor(
     @Inject('CountryModel') private readonly countryModel: Model<CountryDocument>
-  ) {}
-  
+  ) { }
+
   async create() {
     const country: Partial<Country> = {
       name: "Iran",
@@ -20,7 +21,7 @@ export class CountryService {
         "98"
       ],
       capital: "Tehran",
-      altSpellings:[
+      altSpellings: [
         "IR",
         "Islamic Republic of Iran",
         "Jomhuri-ye Eslāmi-ye Irān"
@@ -44,30 +45,26 @@ export class CountryService {
       languages: [
         "a0a83ef8-a79e-44e9-baa6-57aa88bb2b96"
       ],
-      translations:  {
+      translations: {
         "de": "Iran",
-        "es": "Iran",
-        "fr": "Iran",
-        "ja": "イラン・イスラム共和国",
-        "it": null,
-        "br": "Irã",
-        "pt": "Irão",
-        "nl": "Iran",
-        "hr": "Iran",
-        "fa": "ایران"
       },
       flag: "https://restcountries.eu/data/irn.svg"
     }
 
+
     const result = await this.countryModel.create(country);
-    return result;
+    console.log(result.toObject());
+    console.log(Country);
+
+
+    return plainToClass(Country, result.toJSON());
   }
 
   async findAll() {
     try {
       const result = await this.countryModel.findOne();
       return result;
-    }catch (e) {
+    } catch (e) {
       console.log(e);
     }
 

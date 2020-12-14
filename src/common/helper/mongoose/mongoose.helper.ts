@@ -15,30 +15,16 @@ function basicPlugin(schema: ObjectSchema) {
             return this._id;
         })
         .set(function (v: string) {
-            console.log("SET ID: ", v);
-
             this._id = v;
         });
 
     schema.set("toJSON", {
         versionKey: false,
-        virtuals: false,
-        transform: (doc) => {
-            doc._doc.id = doc._doc._id ? doc._doc._id : doc._doc.id;
-            delete doc._doc.__v;
-            delete doc._doc._id;
-            return doc._doc;
-        }
+        virtuals: true,
     })
     schema.set("toObject", {
         versionKey: false,
-        virtuals: false,
-        transform: (doc) => {
-            doc._doc.id = doc._doc._id ? doc._doc._id : doc._doc.id;
-            delete doc._doc.__v;
-            delete doc._doc._id;
-            return doc._doc;
-        }
+        virtuals: true,
     })
 };
 
@@ -75,7 +61,7 @@ export class BaseSchema {
         default: uuid
     })
     _id?: string;
-    @Expose()
+
     id?: string;
 
 
@@ -95,6 +81,7 @@ export class BaseSchema {
         type: Date,
         default: null
     })
+    @Exclude()
     deletedAt?: Date;
 }
 

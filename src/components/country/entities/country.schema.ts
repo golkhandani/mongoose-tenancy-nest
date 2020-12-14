@@ -1,5 +1,5 @@
 import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
-import { CountryAlphaCode, countryAlphaCodeSchema } from './countryAlpaCode.schema'
+import { CountryAlphaCode, CountryAlphaCodeSchema } from './countryAlpaCode.schema'
 import { GeoLocation, geoLocationSchema } from './geoLocation.schema';
 import { Currency, currencySchema } from './currency.schema';
 import { Exclude, Expose, Type } from 'class-transformer';
@@ -30,7 +30,7 @@ export class Country extends BaseSchema {
   nativeName: string
 
   @Prop({
-    type: countryAlphaCodeSchema
+    type: CountryAlphaCodeSchema
   })
   alphaCode: CountryAlphaCode
 
