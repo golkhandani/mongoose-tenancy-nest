@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { BaseSchema, MongooseDocument, ModelFactory, MongooseSchema, Prop } from 'src/common/helper/mongoose/mongoose.helper';
 import { RolePermissionSchema, RolePermission } from './role-permission.entity';
 
@@ -24,6 +25,7 @@ export class Role extends BaseSchema {
         type: [RolePermissionSchema],
         default: []
     })
+    @Type(() => RolePermission)
     permissions: RolePermission[];
 
 }
@@ -38,7 +40,10 @@ export const {
         option: {
             populate: {
                 "permissions.confirmationRoles": {
-                    select: "name quantity count recipes"
+                    select: "name"
+                },
+                "permissions.permission": {
+                    select: "-_id action active entity"
                 }
             }
         }

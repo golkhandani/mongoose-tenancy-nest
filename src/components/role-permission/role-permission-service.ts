@@ -17,11 +17,9 @@ export class RolePermissionService {
     // 871866ca-548d-4fa7-bc35-f18db5413bd9
 
     async findOne() {
-        const r = await this.roleModel.findById("6b207966-0c21-4c06-ad0b-b6820dd44a77");
-        console.log(r);
 
-        return await this.roleModel
-            .findById("00be7f05-3846-43e8-9b10-bb46c9b5a860")
+        const result = await this.roleModel
+            .findById("e3cd609b-fae7-4d7c-aa81-40becb9c8e7c")
             .deepPopulate([
                 "permissions.permission",
                 "permissions.confirmationRoles"
@@ -30,6 +28,7 @@ export class RolePermissionService {
                 console.log(role.permissions);
 
             })
+        return result.toObject()
     }
 
     async createNewRole() {
@@ -48,7 +47,7 @@ export class RolePermissionService {
             {
                 permission: newPermission.id,
                 confirmationRoles: [
-                    "6b207966-0c21-4c06-ad0b-b6820dd44a77"
+                    "c74b904f-d85a-4125-927b-5610c0d52ed9"
                 ]
             }
         ];

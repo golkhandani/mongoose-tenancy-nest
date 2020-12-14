@@ -3,7 +3,8 @@ import { prop, buildSchema } from "@typegoose/typegoose";
 import { ModelFactory } from 'src/common/helper/mongoose/mongoose.helper';
 
 @MongooseSchema({
-  _id: false
+  _id: false,
+  id: false
 })
 export class CountryAlphaCode {
   @Prop({

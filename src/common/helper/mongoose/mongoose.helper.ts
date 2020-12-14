@@ -10,21 +10,22 @@ function basicPlugin(schema: ObjectSchema) {
         const obj = await this.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true, useFindAndModify: false });
         return obj
     });
-    schema.virtual('id')
-        .get(function () {
-            return this._id;
-        })
-        .set(function (v: string) {
-            this._id = v;
-        });
+
 
     schema.set("toJSON", {
         versionKey: false,
         virtuals: true,
+        transform: function (doc, ret) {
+            delete ret._id;
+        }
     })
     schema.set("toObject", {
         versionKey: false,
         virtuals: true,
+        transform: function (doc, ret) {
+            delete ret._id;
+        }
+
     })
 };
 
@@ -47,21 +48,18 @@ function ModelFactory(modelClass: any, plugins: { plugin: any, option?: any }[] 
 const MongooseSchema = (options?: SchemaOptions) => {
     const defaultOptions = {
         timestamps: true,
-        toObject: { virtuals: true },
-        toJSON: { virtuals: true }
     }
     return Schema(Object.assign(defaultOptions, options))
 }
 
 @MongooseSchema()
 export class BaseSchema {
-    @Exclude()
     @Prop({
         type: String,
-        default: uuid
+        default: uuid,
+        alias: "id"
     })
     _id?: string;
-
     id?: string;
 
 

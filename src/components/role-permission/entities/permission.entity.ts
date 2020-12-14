@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import { BaseSchema, ModelFactory, MongooseSchema, Prop } from 'src/common/helper/mongoose/mongoose.helper';
+import { Exclude } from 'class-transformer';
 const mongoose = require('mongoose');
 const deepPopulate = require('mongoose-deep-populate')(mongoose);
 

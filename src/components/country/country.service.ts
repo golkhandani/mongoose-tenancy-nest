@@ -53,17 +53,15 @@ export class CountryService {
 
 
     const result = await this.countryModel.create(country);
-    console.log(result.toObject());
-    console.log(Country);
-
-
-    return plainToClass(Country, result.toJSON());
+    return result.toObject()
   }
 
   async findAll() {
     try {
-      const result = await this.countryModel.findOne();
-      return result;
+      const result = await this.countryModel.findOne({
+        _id: "cde5c5cb-b413-47b9-a5f0-853b886cf549"
+      });
+      return result.toObject();
     } catch (e) {
       console.log(e);
     }

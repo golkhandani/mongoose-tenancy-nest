@@ -8,10 +8,6 @@ import { BaseSchema, basicPlugin, ModelFactory } from 'src/common/helper/mongoos
 import { Language } from '../../language/entities/language.entity';
 import * as mongoose from "mongoose"
 
-const schema = new mongoose.Schema({
-  name: { type: String }
-})
-
 @MongooseSchema({
   collection: 'country',
 })
@@ -62,37 +58,33 @@ export class Country extends BaseSchema {
   })
   region: string;
 
-  @Type(() => GeoLocation)
 
   @Prop({
     type: geoLocationSchema
   })
-
+  @Type(() => GeoLocation)
   geoLocation: GeoLocation
 
   @Prop({
     type: [String]
   })
-
   timezones: string[]
 
   @Prop({
     type: String
   })
-
   numericCode: string
 
   @Prop({
     type: [currencySchema]
   })
-
+  @Type(() => Currency)
   currencies: Currency[]
 
   @Prop({
     type: [String],
     ref: 'Language'
   })
-  // 
   languages: string[]
 
   @Prop({
