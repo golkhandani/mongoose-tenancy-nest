@@ -9,13 +9,12 @@ export function mongooseBasicPlugin(schema: ObjectSchema) {
         const obj = await this.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true, useFindAndModify: false });
         return obj;
     });
-    (schema as any).post(
-        ["insertOne", "create", "save"],
-        function (doc) {
-            return doc.toObject();
+    (schema as any).pre(
+        ["find", "findOne", "save"],
+        function () {
+            this.option = this.option && { lean: true }
         }
     );
-
     // schema.set("toJSON", {
     //     versionKey: false,
     //     virtuals: true,

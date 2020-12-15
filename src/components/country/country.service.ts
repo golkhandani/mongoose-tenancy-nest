@@ -1,7 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { plainToClass, TransformPlainToClass } from 'class-transformer';
 import { Model } from 'mongoose';
+import { ReturnType } from 'src/common/helper';
 import { Country, CountryDocument } from './entities/country.schema';
+
 
 @Injectable()
 export class CountryService {
@@ -9,7 +11,7 @@ export class CountryService {
     @Inject('CountryModel') private readonly countryModel: Model<CountryDocument>
   ) { }
 
-  @TransformPlainToClass(Country)
+  @ReturnType(Country)
   async create() {
     const country: Partial<Country> = {
       name: "Iran",
@@ -54,12 +56,19 @@ export class CountryService {
 
 
     const result = await this.countryModel.create(country);
-    return result.toObject()
+
+    return result;
   }
 
-  @TransformPlainToClass(Country)
+  @ReturnType(Country)
   async findAll() {
-    const result = await this.countryModel.find();
+    const result = await this.countryModel.findByIdAndUpdate("810086b9-4a8a-4f8d-82ce-97339a5b5139", {
+      $set: {
+        "callingCode": [
+          "9232"
+        ],
+      }
+    }, { new: true });
 
     return result;
   }
