@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { plainToClass } from 'class-transformer';
+import { plainToClass, TransformPlainToClass } from 'class-transformer';
 import { Model } from 'mongoose';
 import { Country, CountryDocument } from './entities/country.schema';
 
@@ -55,26 +55,20 @@ export class CountryService {
     const result = await this.countryModel.create(country);
     return result.toObject()
   }
-
+  @TransformPlainToClass(Country)
   async findAll() {
-    try {
-      const result = await this.countryModel.findOne({
-        _id: "cde5c5cb-b413-47b9-a5f0-853b886cf549"
-      });
-      return result.toObject();
-    } catch (e) {
-      console.log(e);
-    }
+    const result = await this.countryModel.find().lean();
 
+    return result;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} country`;
   }
 
-  // update(id: number, updateCountryDto: UpdateCountryDto) {
-  //   return `This action updates a #${id} country`;
-  // }
+  update(id: number, updateCountryDto) {
+    return `This action updates a #${id} country`;
+  }
 
   remove(id: number) {
     return `This action removes a #${id} country`;

@@ -7,7 +7,7 @@ const deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 
 @MongooseSchema({
-    collection: "role"
+    collection: "role",
 })
 export class Role extends BaseSchema {
     @Prop({

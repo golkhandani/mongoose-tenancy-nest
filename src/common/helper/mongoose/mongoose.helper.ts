@@ -46,22 +46,26 @@ function ModelFactory(modelClass: any, plugins: { plugin: any, option?: any }[] 
     }
 }
 const MongooseSchema = (options?: SchemaOptions) => {
-    const defaultOptions = {
+    const defaultOptions: SchemaOptions = {
         timestamps: true,
+        versionKey: false,
+        minimize: true
     }
     return Schema(Object.assign(defaultOptions, options))
 }
 
 @MongooseSchema()
 export class BaseSchema {
+
     @Prop({
         type: String,
         default: uuid,
         alias: "id"
     })
     _id?: string;
-    id?: string;
 
+    @Expose({ name: "_id" })
+    id: string
 
     @Prop({
         type: Date,
