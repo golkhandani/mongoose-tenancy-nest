@@ -1,8 +1,8 @@
 import { v4 } from 'uuid';
-import { BaseSchema, ModelFactory, MongooseSchema, Prop } from 'src/common/helper/mongoose/mongoose.helper';
+
 import { Exclude } from 'class-transformer';
-const mongoose = require('mongoose');
-const deepPopulate = require('mongoose-deep-populate')(mongoose);
+import { deepPopulate, MongooseBaseSchema, MongooseModelFactory, MongooseProp, MongooseSchema } from 'src/common/mongoose';
+
 
 
 export enum PermissionAction {
@@ -14,19 +14,19 @@ export enum PermissionAction {
 @MongooseSchema({
     collection: "permission"
 })
-export class Permission extends BaseSchema {
-    @Prop({
+export class Permission extends MongooseBaseSchema {
+    @MongooseProp({
         type: String
     })
     entity: string;
 
-    @Prop({
+    @MongooseProp({
         type: String,
         enum: Object.keys(PermissionAction)
     })
     action: PermissionAction;
 
-    @Prop({
+    @MongooseProp({
         type: Boolean
     })
     active: boolean;
@@ -36,7 +36,7 @@ export type PermissionDocument = Permission & Document;
 export const {
     modelDefinition: PermissionDefinition,
     modelSchema: PermissionSchema,
-} = ModelFactory(Permission,
+} = MongooseModelFactory(Permission,
     [
         {
             plugin: deepPopulate

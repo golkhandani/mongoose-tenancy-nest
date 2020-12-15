@@ -1,52 +1,51 @@
-import { ModelDefinition, Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { CountryAlphaCode, CountryAlphaCodeSchema } from './countryAlpaCode.schema'
 import { GeoLocation, geoLocationSchema } from './geoLocation.schema';
 import { Currency, currencySchema } from './currency.schema';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { Document } from 'mongoose'
-import { BaseSchema, basicPlugin, ModelFactory } from 'src/common/helper/mongoose/mongoose.helper';
+
 import { Language } from '../../language/entities/language.entity';
-import * as mongoose from "mongoose"
+import { MongooseBaseSchema, MongooseModelFactory, MongooseProp, MongooseSchema } from 'src/common/mongoose';
 
 @MongooseSchema({
   collection: 'country',
 })
-export class Country extends BaseSchema {
+export class Country extends MongooseBaseSchema {
 
-  @Prop({
+  @MongooseProp({
     type: String
   })
 
   name: string
 
-  @Prop({
+  @MongooseProp({
     type: String
   })
 
   nativeName: string
 
-  @Prop({
+  @MongooseProp({
     type: CountryAlphaCodeSchema
   })
   alphaCode: CountryAlphaCode
 
-  @Prop({
+  @MongooseProp({
     type: [String]
   })
 
   callingCode: string[]
 
-  @Prop({
+  @MongooseProp({
     type: String
   })
   capital: string
 
-  @Prop({
+  @MongooseProp({
     type: [String]
   })
   altSpellings: string[]
 
-  @Prop({
+  @MongooseProp({
     type: String,
     enum: [
       'Africa',
@@ -59,40 +58,40 @@ export class Country extends BaseSchema {
   region: string;
 
 
-  @Prop({
+  @MongooseProp({
     type: geoLocationSchema
   })
   @Type(() => GeoLocation)
   geoLocation: GeoLocation
 
-  @Prop({
+  @MongooseProp({
     type: [String]
   })
   timezones: string[]
 
-  @Prop({
+  @MongooseProp({
     type: String
   })
   numericCode: string
 
-  @Prop({
+  @MongooseProp({
     type: [currencySchema]
   })
   @Type(() => Currency)
   currencies: Currency[]
 
-  @Prop({
+  @MongooseProp({
     type: [String],
     ref: 'Language'
   })
   languages: string[]
 
-  @Prop({
+  @MongooseProp({
     type: Object
   })
   translations: any
 
-  @Prop({
+  @MongooseProp({
     type: String
   })
 
@@ -104,4 +103,4 @@ export type CountryDocument = Language & Document;
 export const {
   modelDefinition: CountryDefinition,
   modelSchema: CountrySchema
-} = ModelFactory(Country);
+} = MongooseModelFactory(Country);

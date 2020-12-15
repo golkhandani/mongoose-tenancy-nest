@@ -1,37 +1,38 @@
 import { Exclude, Expose } from 'class-transformer';
-import { BaseSchema, ModelFactory, MongooseDocument, MongooseSchema, Prop } from 'src/common/helper/mongoose/mongoose.helper';
+import { MongooseBaseSchema, MongooseDocument, MongooseModelFactory, MongooseProp, MongooseSchema } from 'src/common/mongoose';
+
 
 @MongooseSchema({
     collection: "media"
 })
 @Exclude()
-export class Media extends BaseSchema {
+export class Media extends MongooseBaseSchema {
 
-    @Prop({
+    @MongooseProp({
         type: String
     })
     @Expose()
     region: string;
 
-    @Prop({
+    @MongooseProp({
         type: String
     })
     @Expose()
     bucket: string;
 
-    @Prop({
+    @MongooseProp({
         type: String
     })
     @Expose()
     etag: string;
 
-    @Prop({
+    @MongooseProp({
         type: String
     })
     @Expose()
     key: string;
 
-    @Prop({
+    @MongooseProp({
         type: String
     })
     @Expose()
@@ -42,5 +43,5 @@ export type MediaDocument = Media & MongooseDocument;
 export const {
     modelDefinition: MediaDefinition,
     modelSchema: MediaSchema
-} = ModelFactory(Media);
+} = MongooseModelFactory(Media);
 

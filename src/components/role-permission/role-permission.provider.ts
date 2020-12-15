@@ -1,5 +1,5 @@
 import { Provider, Scope } from "@nestjs/common"
-import { AbstractRepository } from "src/common/repository/repository.abstract"
+import { MongooseTenancy } from "src/common/mongoose/mongoose.tenancy";
 import { PermissionDefinition } from "./entities/permission.entity"
 import { RoleDefinition } from "./entities/role.entity"
 
@@ -10,8 +10,8 @@ export const RolePermissionProviders: Provider[] = [
     {
         scope: Scope.REQUEST,
         provide: RoleModel,
-        useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-            return abstractRepository.setModel(
+        useFactory: (mongooseTenancy: MongooseTenancy, request: Request) => {
+            return mongooseTenancy.getModelForTenancy(
                 request.headers["tenant"] as string,
                 RoleDefinition,
                 [
@@ -19,17 +19,17 @@ export const RolePermissionProviders: Provider[] = [
                 ]
             )
         },
-        inject: [AbstractRepository, "REQUEST"]
+        inject: [MongooseTenancy, "REQUEST"]
     },
     {
         scope: Scope.REQUEST,
         provide: PermissionModel,
-        useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-            return abstractRepository.setModel(
+        useFactory: (mongooseTenancy: MongooseTenancy, request: Request) => {
+            return mongooseTenancy.getModelForTenancy(
                 request.headers["tenant"] as string,
                 PermissionDefinition
             )
         },
-        inject: [AbstractRepository, "REQUEST"]
+        inject: [MongooseTenancy, "REQUEST"]
     }
 ]

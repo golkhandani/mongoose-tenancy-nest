@@ -9,6 +9,7 @@ export class CountryService {
     @Inject('CountryModel') private readonly countryModel: Model<CountryDocument>
   ) { }
 
+  @TransformPlainToClass(Country)
   async create() {
     const country: Partial<Country> = {
       name: "Iran",
@@ -55,9 +56,10 @@ export class CountryService {
     const result = await this.countryModel.create(country);
     return result.toObject()
   }
+
   @TransformPlainToClass(Country)
   async findAll() {
-    const result = await this.countryModel.find().lean();
+    const result = await this.countryModel.find();
 
     return result;
   }

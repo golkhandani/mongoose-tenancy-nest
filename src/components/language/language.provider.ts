@@ -1,18 +1,18 @@
 import { Provider, Scope } from "@nestjs/common";
-import { AbstractRepository } from "src/common/repository/repository.abstract";
+import { MongooseTenancy } from "src/common/mongoose/mongoose.tenancy";
 import { LanguageDefinition } from './entities/language.entity'
 
 export const languageProviders: Provider[] = [
   {
     scope: Scope.REQUEST,
     provide: "LanguageModel",
-    useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-      return abstractRepository.setModel(
+    useFactory: (mongooseTenancy: MongooseTenancy, request: Request) => {
+      return mongooseTenancy.getModelForTenancy(
         request.headers["tenant"] as string,
         LanguageDefinition
       )
     },
-    inject: [AbstractRepository, "REQUEST"]
+    inject: [MongooseTenancy, "REQUEST"]
   },
 ]
 

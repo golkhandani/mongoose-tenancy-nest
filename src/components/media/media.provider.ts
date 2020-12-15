@@ -1,17 +1,17 @@
 import { Provider, Scope } from "@nestjs/common";
-import { AbstractRepository } from "src/common/repository/repository.abstract";
+import { MongooseTenancy } from "src/common/mongoose/mongoose.tenancy";
 import { MediaDefinition } from "./schema/media.schema";
 
 export const mediaProviders: Provider[] = [
     {
         provide: "Media_Model",
-        useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-            return abstractRepository.setModel(
+        useFactory: (mongooseTenancy: MongooseTenancy, request: Request) => {
+            return mongooseTenancy.getModelForTenancy(
                 request.headers["tenant"] as string || "Fabizi_1",
                 MediaDefinition
             )
         },
-        inject: [AbstractRepository, "REQUEST"]
+        inject: [MongooseTenancy, "REQUEST"]
     },
 ]
 

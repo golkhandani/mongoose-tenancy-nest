@@ -1,6 +1,6 @@
 import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
 import { prop, buildSchema } from "@typegoose/typegoose";
-import { ModelFactory } from 'src/common/helper/mongoose/mongoose.helper';
+import { MongooseModelFactory } from 'src/common/mongoose';
 
 @MongooseSchema({
   _id: false,
@@ -20,4 +20,4 @@ export class CountryAlphaCode {
 
 export const {
   modelSchema: CountryAlphaCodeSchema
-} = ModelFactory(CountryAlphaCode);
+} = MongooseModelFactory(CountryAlphaCode);

@@ -1,27 +1,27 @@
 import { Type } from 'class-transformer';
-import { BaseSchema, MongooseDocument, ModelFactory, MongooseSchema, Prop } from 'src/common/helper/mongoose/mongoose.helper';
+import { deepPopulate, MongooseBaseSchema, MongooseDocument, MongooseModelFactory, MongooseProp, MongooseSchema } from 'src/common/mongoose';
+
 import { RolePermissionSchema, RolePermission } from './role-permission.entity';
 
-const mongoose = require('mongoose');
-const deepPopulate = require('mongoose-deep-populate')(mongoose);
+
 
 
 @MongooseSchema({
     collection: "role",
 })
-export class Role extends BaseSchema {
-    @Prop({
+export class Role extends MongooseBaseSchema {
+    @MongooseProp({
         type: String
     })
     name: string;
 
-    @Prop({
+    @MongooseProp({
         type: String,
         default: null
     })
     templateName: string;
 
-    @Prop({
+    @MongooseProp({
         type: [RolePermissionSchema],
         default: []
     })
@@ -34,7 +34,7 @@ export type RoleDocument = Role & MongooseDocument;
 export const {
     modelDefinition: RoleDefinition,
     modelSchema: RoleSchema,
-} = ModelFactory(Role, [
+} = MongooseModelFactory(Role, [
     {
         plugin: deepPopulate,
         option: {

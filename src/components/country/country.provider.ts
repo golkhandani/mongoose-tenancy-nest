@@ -1,18 +1,18 @@
 import { Provider, Scope } from "@nestjs/common";
-import { AbstractRepository } from "src/common/repository/repository.abstract";
+import { MongooseTenancy } from "src/common/mongoose/mongoose.tenancy";
 import { CountryDefinition } from './entities/country.schema'
 
 export const countryProviders: Provider[] = [
   {
     scope: Scope.REQUEST,
     provide: "CountryModel",
-    useFactory: (abstractRepository: AbstractRepository, request: Request) => {
-      return abstractRepository.setModel(
+    useFactory: (mongooseTenancy: MongooseTenancy, request: Request) => {
+      return mongooseTenancy.getModelForTenancy(
         request.headers["tenant"] as string,
         CountryDefinition
       )
     },
-    inject: [AbstractRepository, "REQUEST"]
+    inject: [MongooseTenancy, "REQUEST"]
   },
 ]
 
