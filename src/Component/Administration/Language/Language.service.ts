@@ -1,13 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { Language, languageDocument } from './entities/language.entity';
+import {
+  Language,
+  LanguageDocument
+} from './Schema/Language.schema';
 
 @Injectable()
 export class LanguageService {
 
   constructor(
-    @Inject('LanguageModel') private readonly languageModel: Model<languageDocument>
-  ) {}
+    @Inject('LanguageModel')
+    private readonly languageModel: Model<LanguageDocument>
+  ) { }
 
   async create() {
     const language: Partial<Language> = {

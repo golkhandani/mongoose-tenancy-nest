@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { LanguageService } from './language.service';
 import { TransformPlainToClass } from 'class-transformer';
-import { Language } from './entities/language.entity';
+import { LanguageService } from './Language.service';
+import { Language } from './Schema/Language.schema';
 
 @Controller('language')
 export class LanguageController {

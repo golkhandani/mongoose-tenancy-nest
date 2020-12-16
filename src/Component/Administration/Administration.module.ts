@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CountryModule } from '@Administration/Country/Country.module';
-import { LanguageModule } from '@Application/Component/Administration/Language/language.module';
+import { LanguageModule } from '@Administration/Language/Language.module';
 
 const components = [
     CountryModule,

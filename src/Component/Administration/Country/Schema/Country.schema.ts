@@ -5,7 +5,7 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { MongooseBaseSchema, MongooseDocument, MongooseModelFactory, MongooseProp, MongooseSchema } from '@Common/Mongoose';
 import { CountryAlphaCode, CountryAlphaCodeSchema } from './CountryAlphaCode.schema'
 import { GeoLocation, geoLocationSchema } from './GeoLocation.schema';
-import { Language } from '@Administration/Language/entities/language.entity';
+import { Language } from '@Administration/Language/Schema/Language.schema';
 
 @MongooseSchema({
   collection: 'country',

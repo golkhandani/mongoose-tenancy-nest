@@ -1,6 +1,6 @@
 import { Provider, Scope } from "@nestjs/common";
 import { MongooseTenancy } from "@Common/Mongoose/Mongoose.tenancy";
-import { LanguageDefinition } from './entities/language.entity'
+import { LanguageDefinition } from "./Schema/Language.schema";
 
 export const languageProviders: Provider[] = [
   {

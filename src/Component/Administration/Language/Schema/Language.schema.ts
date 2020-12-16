@@ -1,6 +1,11 @@
 import { Exclude, Expose } from 'class-transformer';
-import { Document } from 'mongoose';
-import { MongooseBaseSchema, MongooseModelFactory, MongooseProp, MongooseSchema } from '@Application/Common/Mongoose';
+import {
+  MongooseBaseSchema,
+  MongooseDocument,
+  MongooseModelFactory,
+  MongooseProp,
+  MongooseSchema
+} from '@Common/Mongoose';
 
 
 @MongooseSchema({
@@ -31,7 +36,7 @@ export class Language extends MongooseBaseSchema {
   nativeName: string
 }
 
-export type languageDocument = Language & Document;
+export type LanguageDocument = Language & MongooseDocument;
 export const {
   modelDefinition: LanguageDefinition,
   modelSchema: LanguageSchema
