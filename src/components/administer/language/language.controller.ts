@@ -6,7 +6,7 @@ import { Language } from './entities/language.entity';
 
 @Controller('language')
 export class LanguageController {
-  constructor(private readonly languageService: LanguageService) {}
+  constructor(private readonly languageService: LanguageService) { }
 
   @Post()
   @TransformPlainToClass(Language)
