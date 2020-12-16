@@ -10,6 +10,26 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@Application/*": [
+        "src/*"
+      ],
+      "@Component/*": [
+        "src/Component/*"
+      ],
+      "@Common/*": [
+        "src/Common/*"
+      ],
+      "@Administration/*": [
+        "src/Component/Administration/*"
+      ],
+      "@Management/*": [
+        "src/Component/Management/*"
+      ],
+      "@Operation/*": [
+        "src/Component/Operation/*"
+      ]
+    }
   }
 }
