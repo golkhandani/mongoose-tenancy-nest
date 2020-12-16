@@ -12,6 +12,7 @@ export function MongooseModelFactory(modelClass: any, plugins: { plugin: any; op
         schema: modelSchema
     };
     return {
+        injectName: modelClass.name + "Model",
         modelSchema,
         modelDefinition
     };

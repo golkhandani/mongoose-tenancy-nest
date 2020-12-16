@@ -30,6 +30,7 @@
     "moment": "^2.29.1",
     "mongoose": "^5.10.2",
     "mongoose-deep-populate": "^3.2.0",
+    "mongoose-lean-virtuals": "^0.7.6",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",

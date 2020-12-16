@@ -1,5 +1,9 @@
+import {
+    MongooseModelFactory,
+    MongooseProp,
+    MongooseSchema
+} from '@Common/Mongoose';
 import { Exclude, Type } from 'class-transformer';
-import { MongooseModelFactory, MongooseProp, MongooseSchema } from '@Application/Common/Mongoose';
 import { Permission } from './permission.entity';
 import { Role } from './role.entity';
 

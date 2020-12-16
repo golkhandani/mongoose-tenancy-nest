@@ -1,6 +1,6 @@
 import { Connection } from 'mongoose';
 import { InjectConnection, ModelDefinition } from '@nestjs/mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Provider, Scope } from '@nestjs/common';
 
 
 
@@ -10,7 +10,23 @@ export class MongooseTenancy {
 
   constructor(@InjectConnection() private readonly connection: Connection) { }
 
-
+  static modelProvider(
+    modelName: string,
+    MainModelDefinition: ModelDefinition,
+    DependencyModelDefinitions?: ModelDefinition[]): Provider<any> {
+    return {
+      scope: Scope.REQUEST,
+      provide: modelName,
+      useFactory: (mongooseTenancy: MongooseTenancy, request: Request) => {
+        return mongooseTenancy.getModelForTenancy(
+          request.headers["tenant"] as string,
+          MainModelDefinition,
+          DependencyModelDefinitions
+        );
+      },
+      inject: [MongooseTenancy, "REQUEST"]
+    };
+  }
   getModelForTenancy(
     tenantDatabaseName: string,
     MainModelDefinition: ModelDefinition,

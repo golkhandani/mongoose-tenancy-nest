@@ -9,12 +9,12 @@ export class CountryAlphaCode {
   @Prop({
     type: String
   })
-  primary: string
+  Primary: string
 
   @Prop({
     type: String
   })
-  secondary: string
+  Secondary: string
 }
 
 export const {

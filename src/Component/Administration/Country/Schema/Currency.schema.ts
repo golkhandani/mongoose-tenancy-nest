@@ -11,17 +11,17 @@ export class Currency {
   @Prop({
     type: String
   })
-  code: string
+  Code: string
 
   @Prop({
     type: String
   })
-  name: string
+  Name: string
 
   @Prop({
     type: String
   })
-  symbol: string
+  Symbol: string
 }
 
-export const currencySchema = SchemaFactory.createForClass(Currency);
+export const CurrencySchema = SchemaFactory.createForClass(Currency);

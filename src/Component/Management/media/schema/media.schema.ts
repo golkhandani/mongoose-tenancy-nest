@@ -1,5 +1,7 @@
+import {
+    MongooseBaseSchema, MongooseDocument, MongooseModelFactory, MongooseProp, MongooseSchema
+} from '@Common/Mongoose';
 import { Exclude, Expose } from 'class-transformer';
-import { MongooseBaseSchema, MongooseDocument, MongooseModelFactory, MongooseProp, MongooseSchema } from '@Application/Common/Mongoose';
 
 
 @MongooseSchema({

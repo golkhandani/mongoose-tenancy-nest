@@ -1,74 +1,70 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ReturnType } from '@Application/Common/Helper';
-import { Country, CountryDocument } from './Schema/Country.schema';
-import { MongooseModel } from '@Application/Common/Mongoose';
+import { Continent, Country, CountryModel, CountryModelName } from './Schema/Country.schema';
 
 
 @Injectable()
 export class CountryService {
   constructor(
-    @Inject('CountryModel') private readonly countryModel: MongooseModel<CountryDocument>
+    @Inject(CountryModelName) private readonly countryModel: CountryModel
   ) { }
 
   @ReturnType(Country)
   async create() {
     const country: Partial<Country> = {
-      name: "Iran",
-      nativeName: "ایران",
-      alphaCode: {
-        primary: 'IR',
-        secondary: 'IRN'
+      Name: "Iran",
+      NativeName: "ایران",
+      AlphaCode: {
+        Primary: 'IR',
+        Secondary: 'IRN'
       },
-      callingCode: [
+      CallingCode: [
         "98"
       ],
-      capital: "Tehran",
-      altSpellings: [
+      Capital: "Tehran",
+      AltSpellings: [
         "IR",
         "Islamic Republic of Iran",
         "Jomhuri-ye Eslāmi-ye Irān"
       ],
-      region: 'Asia',
-      geoLocation: {
-        lat: 32,
-        long: 53
+      Region: Continent.AFRICA,
+      GeoLocation: {
+        Lat: 32,
+        Lng: 53
       },
-      timezones: [
+      Timezones: [
         "UTC+03:30"
       ],
-      numericCode: "364",
-      currencies: [
+      NumericCode: "364",
+      Currencies: [
         {
-          code: "IRR",
-          name: "Iranian rial",
-          symbol: "﷼"
+          Code: "IRR",
+          Name: "Iranian rial",
+          Symbol: "﷼"
         }
       ],
-      languages: [
+      Languages: [
         "a0a83ef8-a79e-44e9-baa6-57aa88bb2b96"
       ],
-      translations: {
+      Translations: {
         "de": "Iran",
       },
-      flag: "https://restcountries.eu/data/irn.svg"
+      Flag: "https://restcountries.eu/data/irn.svg"
     }
 
 
     const result = await this.countryModel.create(country);
+
+
 
     return result;
   }
 
   @ReturnType(Country)
   async findAll() {
-    const result = await this.countryModel.findByIdAndUpdate("810086b9-4a8a-4f8d-82ce-97339a5b5139", {
-      $set: {
-        "callingCode": [
-          "9232"
-        ],
-      }
-    }, { new: true });
-
+    const result =
+      await this.countryModel
+        .findById("7d187bbf-2c83-4813-b498-74fb09a5c2c2");
     return result;
   }
 

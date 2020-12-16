@@ -1,7 +1,12 @@
-import { v4 } from 'uuid';
 
-import { Exclude } from 'class-transformer';
-import { deepPopulate, MongooseBaseSchema, MongooseModelFactory, MongooseProp, MongooseSchema } from '@Application/Common/Mongoose';
+import {
+    deepPopulate,
+    MongooseBaseSchema,
+    MongooseDocument,
+    MongooseModelFactory,
+    MongooseProp,
+    MongooseSchema
+} from '@Common/Mongoose';
 
 
 
@@ -32,7 +37,7 @@ export class Permission extends MongooseBaseSchema {
     active: boolean;
 }
 
-export type PermissionDocument = Permission & Document;
+export type PermissionDocument = Permission & MongooseDocument;
 export const {
     modelDefinition: PermissionDefinition,
     modelSchema: PermissionSchema,

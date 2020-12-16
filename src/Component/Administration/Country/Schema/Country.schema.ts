@@ -1,106 +1,120 @@
 
-import { Currency, currencySchema } from './Currency.schema';
+import { Currency, CurrencySchema } from './Currency.schema';
 import { Exclude, Expose, Type } from 'class-transformer';
 
-import { MongooseBaseSchema, MongooseDocument, MongooseModelFactory, MongooseProp, MongooseSchema } from '@Common/Mongoose';
+import { MongooseBaseSchema, MongooseDocument, MongooseModel, MongooseModelFactory, MongooseProp, MongooseSchema } from '@Common/Mongoose';
 import { CountryAlphaCode, CountryAlphaCodeSchema } from './CountryAlphaCode.schema'
 import { GeoLocation, geoLocationSchema } from './GeoLocation.schema';
-import { Language } from '@Administration/Language/Schema/Language.schema';
+
+
+export enum Continent {
+  AFRICA = 'Africa',
+  AMERICAS = 'Americas',
+  ASIA = 'Asia',
+  EUROPE = 'Europe',
+  OCEANIA = 'Oceania'
+}
+export enum LanguageType {
+  LTR = "LTR",
+  RTL = "RTL"
+}
 
 @MongooseSchema({
   collection: 'country',
+
 })
 export class Country extends MongooseBaseSchema {
 
   @MongooseProp({
     type: String
   })
+  Name: string
 
-  name: string
+  @MongooseProp({
+    type: String,
+    enum: ["LTR", "RTL"],
+    default: LanguageType.LTR
+  })
+  Type: LanguageType
 
   @MongooseProp({
     type: String
   })
 
-  nativeName: string
+  NativeName: string
 
   @MongooseProp({
     type: CountryAlphaCodeSchema
   })
-  alphaCode: CountryAlphaCode
+  AlphaCode: CountryAlphaCode
 
   @MongooseProp({
     type: [String]
   })
 
-  callingCode: string[]
+  CallingCode: string[]
 
   @MongooseProp({
     type: String
   })
-  capital: string
+  Capital: string
 
   @MongooseProp({
     type: [String]
   })
-  altSpellings: string[]
+  AltSpellings: string[]
 
   @MongooseProp({
     type: String,
-    enum: [
-      'Africa',
-      'Americas',
-      'Asia',
-      'Europe',
-      'Oceania'
-    ]
+    enum: Object.values(Continent)
   })
-  region: string;
+  Region: Continent;
 
 
   @MongooseProp({
     type: geoLocationSchema
   })
   @Type(() => GeoLocation)
-  geoLocation: GeoLocation
+  GeoLocation: GeoLocation
 
   @MongooseProp({
     type: [String]
   })
-  timezones: string[]
+  Timezones: string[]
 
   @MongooseProp({
     type: String
   })
-  numericCode: string
+  NumericCode: string
 
   @MongooseProp({
-    type: [currencySchema]
+    type: [CurrencySchema]
   })
   @Type(() => Currency)
-  currencies: Currency[]
+  Currencies: Currency[]
 
   @MongooseProp({
     type: [String],
     ref: 'Language'
   })
-  languages: string[]
+  Languages: string[]
 
   @MongooseProp({
     type: Object
   })
-  translations: any
+  Translations: any
 
   @MongooseProp({
     type: String
   })
-
-  flag: string
+  Flag: string
 
 }
 
-export type CountryDocument = Language & MongooseDocument;
+export type CountryDocument = Country & MongooseDocument;
+export type CountryModel = MongooseModel<CountryDocument>;
 export const {
   modelDefinition: CountryDefinition,
-  modelSchema: CountrySchema
+  modelSchema: CountrySchema,
+  injectName: CountryModelName
 } = MongooseModelFactory(Country);

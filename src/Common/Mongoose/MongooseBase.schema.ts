@@ -3,40 +3,38 @@ import { Exclude, Expose } from 'class-transformer';
 import { v4 as uuid } from 'uuid';
 import { MongooseSchema } from "@Common/Mongoose/MongooseSchema.decorator";
 
-
 @MongooseSchema()
-export class MongooseBaseSchema {
-
+class MongooseId {
     @Prop({
         type: String,
         default: uuid,
-        alias: "id"
+        alias: "Id"
     })
     // Don't need expose or exclude
-    @Expose({ name: "id" })
+    @Expose({ name: "Id" })
     _id?: string;
+}
+
+@MongooseSchema()
+export class MongooseBaseSchema extends MongooseId {
+
     @Expose({ name: "_id" })
-    id: string;
+    Id: string;
 
-
-    @Prop({
-        type: Date,
-        default: new Date()
+    @Expose({
+        name: "createdAt"
     })
-    @Expose()
-    createdAt?: Date;
+    CreatedAt?: Date;
 
-    @Prop({
-        type: Date,
-        default: new Date()
+    @Expose({
+        name: "updatedAt"
     })
-    @Expose()
-    updatedAt?: Date;
+    UpdatedAt?: Date;
 
     @Prop({
         type: Date,
         default: null
     })
     @Exclude()
-    deletedAt?: Date;
+    DeletedAt?: Date;
 }

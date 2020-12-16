@@ -5,15 +5,15 @@ import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose'
 })
 export class GeoLocation {
   @Prop({
-    type: Number
+    $type: Number
   })
   // @Exclude()
-  lat: number
+  Lat: number
 
   @Prop({
-    type: Number
+    $type: Number
   })
-  long: number
+  Lng: number
 }
 
 export const geoLocationSchema = SchemaFactory.createForClass(GeoLocation);
