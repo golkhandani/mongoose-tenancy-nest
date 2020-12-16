@@ -1,11 +1,11 @@
-import { CountryAlphaCode, CountryAlphaCodeSchema } from './countryAlpaCode.schema'
-import { GeoLocation, geoLocationSchema } from './geoLocation.schema';
-import { Currency, currencySchema } from './currency.schema';
-import { Exclude, Expose, Type } from 'class-transformer';
-import { Document } from 'mongoose'
 
-import { Language } from '../../Language/entities/language.entity';
-import { MongooseBaseSchema, MongooseModelFactory, MongooseProp, MongooseSchema } from '@Application/Common/Mongoose';
+import { Currency, currencySchema } from './Currency.schema';
+import { Exclude, Expose, Type } from 'class-transformer';
+
+import { MongooseBaseSchema, MongooseDocument, MongooseModelFactory, MongooseProp, MongooseSchema } from '@Common/Mongoose';
+import { CountryAlphaCode, CountryAlphaCodeSchema } from './CountryAlphaCode.schema'
+import { GeoLocation, geoLocationSchema } from './GeoLocation.schema';
+import { Language } from '@Administration/Language/entities/language.entity';
 
 @MongooseSchema({
   collection: 'country',
@@ -99,7 +99,7 @@ export class Country extends MongooseBaseSchema {
 
 }
 
-export type CountryDocument = Language & Document;
+export type CountryDocument = Language & MongooseDocument;
 export const {
   modelDefinition: CountryDefinition,
   modelSchema: CountrySchema

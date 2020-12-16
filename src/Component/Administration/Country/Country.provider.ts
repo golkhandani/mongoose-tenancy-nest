@@ -1,6 +1,6 @@
 import { Provider, Scope } from "@nestjs/common";
 import { MongooseTenancy } from "@Common/Mongoose/Mongoose.tenancy";
-import { CountryDefinition } from './entities/country.schema'
+import { CountryDefinition } from './Schema/Country.schema'
 
 export const countryProviders: Provider[] = [
   {

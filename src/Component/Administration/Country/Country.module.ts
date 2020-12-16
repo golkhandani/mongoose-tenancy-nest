@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { CountryService } from './country.service';
-import { CountryController } from './country.controller';
-import { countryProviders } from './country.provider';
+import { CountryService } from './Country.service';
+import { CountryController } from './Country.controller';
+import { countryProviders } from './Country.provider';
 import { CommonModule } from '@Common/Common.module';
 
 @Module({

@@ -1,9 +1,10 @@
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { CountryService } from './country.service';
-import { CreateCountryDto } from './dto/create-country.dto';
+import { CountryService } from './Country.service';
+import { CreateCountryDto } from './DTO/create-country.dto';
 
-@Controller('country')
+@Controller(CountryController.path)
 export class CountryController {
+  public static path = "Country";
   constructor(private readonly countryService: CountryService) { }
 
   @Post()

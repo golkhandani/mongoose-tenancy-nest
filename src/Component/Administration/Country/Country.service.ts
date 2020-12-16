@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ReturnType } from '@Application/Common/Helper';
-import { Country, CountryDocument } from './entities/country.schema';
+import { Country, CountryDocument } from './Schema/Country.schema';
 import { MongooseModel } from '@Application/Common/Mongoose';
 
 
