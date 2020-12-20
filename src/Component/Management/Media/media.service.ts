@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { Model } from 'mongoose';
-import { Media, MediaDocument } from './schema/media.schema';
+import { Media, MediaDocument } from './Schema/media.schema';
 
 @Injectable()
 export class MediaService {

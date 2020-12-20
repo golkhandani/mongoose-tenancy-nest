@@ -1,6 +1,6 @@
 import { Provider, Scope } from "@nestjs/common";
 import { MongooseTenancy } from "@Application/Common/Mongoose/Mongoose.tenancy";
-import { MediaDefinition } from "./schema/media.schema";
+import { MediaDefinition } from "./Schema/media.schema";
 
 export const mediaProviders: Provider[] = [
     {

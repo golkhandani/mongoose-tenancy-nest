@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { MediaModule } from './media/media.module';
-import { RolePermissionModule } from './role-permission/role-permission.module';
+import { MediaModule } from './Media/media.module';
+import { RolePermissionModule } from './RolePermission/role-permission.module';
 
 const components = [
     MediaModule,

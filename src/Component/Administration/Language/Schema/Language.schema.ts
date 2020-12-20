@@ -20,6 +20,7 @@ export class Language extends MongooseBaseSchema {
       secondary: String
     }
   })
+  @Expose()
   isoCode: {
     primary: string,
     secondary: string
@@ -28,11 +29,13 @@ export class Language extends MongooseBaseSchema {
   @MongooseProp({
     type: String
   })
+  @Expose()
   name: string
 
   @MongooseProp({
     type: String
   })
+  @Expose()
   nativeName: string
 }
 

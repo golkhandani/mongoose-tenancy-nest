@@ -1,7 +1,7 @@
 import { ClassSerializerInterceptor, Controller, Delete, Get, Post, UseInterceptors } from '@nestjs/common';
 import { TransformPlainToClass } from 'class-transformer';
 import { MediaService } from './media.service';
-import { Media } from './schema/media.schema';
+import { Media } from './Schema/media.schema';
 
 @Controller('Media')
 export class MediaController {

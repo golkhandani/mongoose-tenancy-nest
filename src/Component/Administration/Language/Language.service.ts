@@ -1,7 +1,9 @@
+import { DatabaseModule } from '@Application/Common/Database/Database.module';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import {
   Language,
+  LanguageDefinition,
   LanguageDocument
 } from './Schema/Language.schema';
 
@@ -9,11 +11,12 @@ import {
 export class LanguageService {
 
   constructor(
-    @Inject('LanguageModel')
+    @Inject(LanguageDefinition.name)
     private readonly languageModel: Model<LanguageDocument>
   ) { }
 
   async create() {
+    //  return `This action returns a new language`;
     const language: Partial<Language> = {
       isoCode: {
         primary: 'fa',

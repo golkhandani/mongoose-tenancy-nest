@@ -11,7 +11,7 @@ class MongooseId {
         alias: "Id"
     })
     // Don't need expose or exclude
-    @Expose({ name: "Id" })
+    // @Expose({ name: "Id" })
     _id?: string;
 }
 

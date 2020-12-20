@@ -3,7 +3,7 @@ import { TransformPlainToClass } from 'class-transformer';
 import { LanguageService } from './Language.service';
 import { Language } from './Schema/Language.schema';
 
-@Controller('language')
+@Controller('Language')
 export class LanguageController {
   constructor(private readonly languageService: LanguageService) { }
 

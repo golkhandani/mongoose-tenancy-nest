@@ -11,7 +11,7 @@ import { deepPopulate } from "@Common/Mongoose/MongooseDeepPopulate.plugin";
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-const MongooseConnection = MongooseModule.forRoot('mongodb://localhost:30003',
+const MongooseConnection = MongooseModule.forRoot('mongodb://localhost:27017',
     {
         w: 'majority',
         useFindAndModify: false
